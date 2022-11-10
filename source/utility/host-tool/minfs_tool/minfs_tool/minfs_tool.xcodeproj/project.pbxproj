@@ -1,0 +1,414 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		35EC88A8291ACDD500F6BA79 /* minfs_dump.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EC887B291ACDD300F6BA79 /* minfs_dump.c */; };
+		35EC88A9291ACDD500F6BA79 /* inifile.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EC887F291ACDD300F6BA79 /* inifile.c */; };
+		35EC88AA291ACDD500F6BA79 /* minfs_main.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EC8880291ACDD300F6BA79 /* minfs_main.c */; };
+		35EC88AB291ACDD500F6BA79 /* config_private.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EC8883291ACDD300F6BA79 /* config_private.c */; };
+		35EC88AC291ACDD500F6BA79 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 35EC8884291ACDD300F6BA79 /* Makefile */; };
+		35EC88AD291ACDD500F6BA79 /* config.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EC8885291ACDD300F6BA79 /* config.c */; };
+		35EC88AE291ACDD500F6BA79 /* LzmaEnc.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EC8889291ACDD300F6BA79 /* LzmaEnc.c */; };
+		35EC88AF291ACDD500F6BA79 /* LzFind.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EC888A291ACDD300F6BA79 /* LzFind.c */; };
+		35EC88B0291ACDD500F6BA79 /* LzmaDec.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EC888D291ACDD400F6BA79 /* LzmaDec.c */; };
+		35EC88B1291ACDD500F6BA79 /* LzmaLib.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EC8891291ACDD400F6BA79 /* LzmaLib.c */; };
+		35EC88B2291ACDD500F6BA79 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 35EC8895291ACDD400F6BA79 /* Makefile */; };
+		35EC88B3291ACDD500F6BA79 /* minfs_calc.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EC8896291ACDD400F6BA79 /* minfs_calc.c */; };
+		35EC88B4291ACDD500F6BA79 /* minfs_tool.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EC8897291ACDD400F6BA79 /* minfs_tool.c */; };
+		35EC88B5291ACDD500F6BA79 /* minfs_util.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EC8898291ACDD400F6BA79 /* minfs_util.c */; };
+		35EC88B6291ACDD500F6BA79 /* elf_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EC8899291ACDD400F6BA79 /* elf_parser.c */; };
+		35EC88B7291ACDD500F6BA79 /* minfs_config.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EC889F291ACDD400F6BA79 /* minfs_config.c */; };
+		35EC88B8291ACDD500F6BA79 /* minfs_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EC88A2291ACDD500F6BA79 /* minfs_compress.c */; };
+		35EC88B9291ACDD500F6BA79 /* minfs_make.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EC88A4291ACDD500F6BA79 /* minfs_make.c */; };
+		35EC88BA291ACDD500F6BA79 /* minfs_module.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EC88A6291ACDD500F6BA79 /* minfs_module.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		35EC886F291ACDBA00F6BA79 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		35EC8871291ACDBA00F6BA79 /* minfs_tool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = minfs_tool; sourceTree = BUILT_PRODUCTS_DIR; };
+		35EC887B291ACDD300F6BA79 /* minfs_dump.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = minfs_dump.c; path = ../minfs_dump.c; sourceTree = "<group>"; };
+		35EC887C291ACDD300F6BA79 /* minfs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = minfs.h; path = ../minfs.h; sourceTree = "<group>"; };
+		35EC887D291ACDD300F6BA79 /* ramfs.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ramfs.ini; path = ../ramfs.ini; sourceTree = "<group>"; };
+		35EC887E291ACDD300F6BA79 /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ReadMe.txt; path = ../ReadMe.txt; sourceTree = "<group>"; };
+		35EC887F291ACDD300F6BA79 /* inifile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = inifile.c; path = ../inifile.c; sourceTree = "<group>"; };
+		35EC8880291ACDD300F6BA79 /* minfs_main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = minfs_main.c; path = ../minfs_main.c; sourceTree = "<group>"; };
+		35EC8882291ACDD300F6BA79 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		35EC8883291ACDD300F6BA79 /* config_private.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = config_private.c; sourceTree = "<group>"; };
+		35EC8884291ACDD300F6BA79 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		35EC8885291ACDD300F6BA79 /* config.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = config.c; sourceTree = "<group>"; };
+		35EC8886291ACDD300F6BA79 /* config_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config_private.h; sourceTree = "<group>"; };
+		35EC8888291ACDD300F6BA79 /* LzHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LzHash.h; sourceTree = "<group>"; };
+		35EC8889291ACDD300F6BA79 /* LzmaEnc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LzmaEnc.c; sourceTree = "<group>"; };
+		35EC888A291ACDD300F6BA79 /* LzFind.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LzFind.c; sourceTree = "<group>"; };
+		35EC888B291ACDD400F6BA79 /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		35EC888C291ACDD400F6BA79 /* LzmaLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LzmaLib.h; sourceTree = "<group>"; };
+		35EC888D291ACDD400F6BA79 /* LzmaDec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LzmaDec.c; sourceTree = "<group>"; };
+		35EC888E291ACDD400F6BA79 /* LzmaEnc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LzmaEnc.h; sourceTree = "<group>"; };
+		35EC888F291ACDD400F6BA79 /* LzFind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LzFind.h; sourceTree = "<group>"; };
+		35EC8890291ACDD400F6BA79 /* LzmaDec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LzmaDec.h; sourceTree = "<group>"; };
+		35EC8891291ACDD400F6BA79 /* LzmaLib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LzmaLib.c; sourceTree = "<group>"; };
+		35EC8892291ACDD400F6BA79 /* minfs_module.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = minfs_module.h; path = ../minfs_module.h; sourceTree = "<group>"; };
+		35EC8893291ACDD400F6BA79 /* minfs_dump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = minfs_dump.h; path = ../minfs_dump.h; sourceTree = "<group>"; };
+		35EC8894291ACDD400F6BA79 /* elf_parser_i.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = elf_parser_i.h; path = ../elf_parser_i.h; sourceTree = "<group>"; };
+		35EC8895291ACDD400F6BA79 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; name = Makefile; path = ../Makefile; sourceTree = "<group>"; };
+		35EC8896291ACDD400F6BA79 /* minfs_calc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = minfs_calc.c; path = ../minfs_calc.c; sourceTree = "<group>"; };
+		35EC8897291ACDD400F6BA79 /* minfs_tool.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = minfs_tool.c; path = ../minfs_tool.c; sourceTree = "<group>"; };
+		35EC8898291ACDD400F6BA79 /* minfs_util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = minfs_util.c; path = ../minfs_util.c; sourceTree = "<group>"; };
+		35EC8899291ACDD400F6BA79 /* elf_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = elf_parser.c; path = ../elf_parser.c; sourceTree = "<group>"; };
+		35EC889A291ACDD400F6BA79 /* rootfs.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = rootfs.ini; path = ../rootfs.ini; sourceTree = "<group>"; };
+		35EC889B291ACDD400F6BA79 /* minfs_make.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = minfs_make.h; path = ../minfs_make.h; sourceTree = "<group>"; };
+		35EC889C291ACDD400F6BA79 /* elf_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = elf_parser.h; path = ../elf_parser.h; sourceTree = "<group>"; };
+		35EC889D291ACDD400F6BA79 /* minfs_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = minfs_config.h; path = ../minfs_config.h; sourceTree = "<group>"; };
+		35EC889E291ACDD400F6BA79 /* minfs_compress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = minfs_compress.h; path = ../minfs_compress.h; sourceTree = "<group>"; };
+		35EC889F291ACDD400F6BA79 /* minfs_config.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = minfs_config.c; path = ../minfs_config.c; sourceTree = "<group>"; };
+		35EC88A0291ACDD400F6BA79 /* minfs_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = minfs_types.h; path = ../minfs_types.h; sourceTree = "<group>"; };
+		35EC88A1291ACDD500F6BA79 /* eelf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = eelf.h; path = ../eelf.h; sourceTree = "<group>"; };
+		35EC88A2291ACDD500F6BA79 /* minfs_compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = minfs_compress.c; path = ../minfs_compress.c; sourceTree = "<group>"; };
+		35EC88A3291ACDD500F6BA79 /* inifile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inifile.h; path = ../inifile.h; sourceTree = "<group>"; };
+		35EC88A4291ACDD500F6BA79 /* minfs_make.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = minfs_make.c; path = ../minfs_make.c; sourceTree = "<group>"; };
+		35EC88A5291ACDD500F6BA79 /* minfs_calc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = minfs_calc.h; path = ../minfs_calc.h; sourceTree = "<group>"; };
+		35EC88A6291ACDD500F6BA79 /* minfs_module.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = minfs_module.c; path = ../minfs_module.c; sourceTree = "<group>"; };
+		35EC88A7291ACDD500F6BA79 /* minfs_tool_i.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = minfs_tool_i.h; path = ../minfs_tool_i.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		35EC886E291ACDBA00F6BA79 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		35EC8868291ACDBA00F6BA79 = {
+			isa = PBXGroup;
+			children = (
+				35EC8881291ACDD300F6BA79 /* config */,
+				35EC88A1291ACDD500F6BA79 /* eelf.h */,
+				35EC8894291ACDD400F6BA79 /* elf_parser_i.h */,
+				35EC8899291ACDD400F6BA79 /* elf_parser.c */,
+				35EC889C291ACDD400F6BA79 /* elf_parser.h */,
+				35EC887F291ACDD300F6BA79 /* inifile.c */,
+				35EC88A3291ACDD500F6BA79 /* inifile.h */,
+				35EC8887291ACDD300F6BA79 /* lzma */,
+				35EC8895291ACDD400F6BA79 /* Makefile */,
+				35EC8896291ACDD400F6BA79 /* minfs_calc.c */,
+				35EC88A5291ACDD500F6BA79 /* minfs_calc.h */,
+				35EC88A2291ACDD500F6BA79 /* minfs_compress.c */,
+				35EC889E291ACDD400F6BA79 /* minfs_compress.h */,
+				35EC889F291ACDD400F6BA79 /* minfs_config.c */,
+				35EC889D291ACDD400F6BA79 /* minfs_config.h */,
+				35EC887B291ACDD300F6BA79 /* minfs_dump.c */,
+				35EC8893291ACDD400F6BA79 /* minfs_dump.h */,
+				35EC8880291ACDD300F6BA79 /* minfs_main.c */,
+				35EC88A4291ACDD500F6BA79 /* minfs_make.c */,
+				35EC889B291ACDD400F6BA79 /* minfs_make.h */,
+				35EC88A6291ACDD500F6BA79 /* minfs_module.c */,
+				35EC8892291ACDD400F6BA79 /* minfs_module.h */,
+				35EC88A7291ACDD500F6BA79 /* minfs_tool_i.h */,
+				35EC8897291ACDD400F6BA79 /* minfs_tool.c */,
+				35EC88A0291ACDD400F6BA79 /* minfs_types.h */,
+				35EC8898291ACDD400F6BA79 /* minfs_util.c */,
+				35EC887C291ACDD300F6BA79 /* minfs.h */,
+				35EC887D291ACDD300F6BA79 /* ramfs.ini */,
+				35EC887E291ACDD300F6BA79 /* ReadMe.txt */,
+				35EC889A291ACDD400F6BA79 /* rootfs.ini */,
+				35EC8872291ACDBA00F6BA79 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		35EC8872291ACDBA00F6BA79 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				35EC8871291ACDBA00F6BA79 /* minfs_tool */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		35EC8881291ACDD300F6BA79 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				35EC8882291ACDD300F6BA79 /* config.h */,
+				35EC8883291ACDD300F6BA79 /* config_private.c */,
+				35EC8884291ACDD300F6BA79 /* Makefile */,
+				35EC8885291ACDD300F6BA79 /* config.c */,
+				35EC8886291ACDD300F6BA79 /* config_private.h */,
+			);
+			name = config;
+			path = ../config;
+			sourceTree = "<group>";
+		};
+		35EC8887291ACDD300F6BA79 /* lzma */ = {
+			isa = PBXGroup;
+			children = (
+				35EC8888291ACDD300F6BA79 /* LzHash.h */,
+				35EC8889291ACDD300F6BA79 /* LzmaEnc.c */,
+				35EC888A291ACDD300F6BA79 /* LzFind.c */,
+				35EC888B291ACDD400F6BA79 /* Types.h */,
+				35EC888C291ACDD400F6BA79 /* LzmaLib.h */,
+				35EC888D291ACDD400F6BA79 /* LzmaDec.c */,
+				35EC888E291ACDD400F6BA79 /* LzmaEnc.h */,
+				35EC888F291ACDD400F6BA79 /* LzFind.h */,
+				35EC8890291ACDD400F6BA79 /* LzmaDec.h */,
+				35EC8891291ACDD400F6BA79 /* LzmaLib.c */,
+			);
+			name = lzma;
+			path = ../lzma;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		35EC8870291ACDBA00F6BA79 /* minfs_tool */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 35EC8878291ACDBA00F6BA79 /* Build configuration list for PBXNativeTarget "minfs_tool" */;
+			buildPhases = (
+				35EC886D291ACDBA00F6BA79 /* Sources */,
+				35EC886E291ACDBA00F6BA79 /* Frameworks */,
+				35EC886F291ACDBA00F6BA79 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = minfs_tool;
+			productName = minfs_tool;
+			productReference = 35EC8871291ACDBA00F6BA79 /* minfs_tool */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		35EC8869291ACDBA00F6BA79 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1400;
+				TargetAttributes = {
+					35EC8870291ACDBA00F6BA79 = {
+						CreatedOnToolsVersion = 14.0.1;
+					};
+				};
+			};
+			buildConfigurationList = 35EC886C291ACDBA00F6BA79 /* Build configuration list for PBXProject "minfs_tool" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 35EC8868291ACDBA00F6BA79;
+			productRefGroup = 35EC8872291ACDBA00F6BA79 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				35EC8870291ACDBA00F6BA79 /* minfs_tool */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		35EC886D291ACDBA00F6BA79 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35EC88B4291ACDD500F6BA79 /* minfs_tool.c in Sources */,
+				35EC88B7291ACDD500F6BA79 /* minfs_config.c in Sources */,
+				35EC88B3291ACDD500F6BA79 /* minfs_calc.c in Sources */,
+				35EC88B9291ACDD500F6BA79 /* minfs_make.c in Sources */,
+				35EC88AF291ACDD500F6BA79 /* LzFind.c in Sources */,
+				35EC88B6291ACDD500F6BA79 /* elf_parser.c in Sources */,
+				35EC88AC291ACDD500F6BA79 /* Makefile in Sources */,
+				35EC88B0291ACDD500F6BA79 /* LzmaDec.c in Sources */,
+				35EC88BA291ACDD500F6BA79 /* minfs_module.c in Sources */,
+				35EC88B2291ACDD500F6BA79 /* Makefile in Sources */,
+				35EC88B1291ACDD500F6BA79 /* LzmaLib.c in Sources */,
+				35EC88AD291ACDD500F6BA79 /* config.c in Sources */,
+				35EC88A9291ACDD500F6BA79 /* inifile.c in Sources */,
+				35EC88AB291ACDD500F6BA79 /* config_private.c in Sources */,
+				35EC88AE291ACDD500F6BA79 /* LzmaEnc.c in Sources */,
+				35EC88B8291ACDD500F6BA79 /* minfs_compress.c in Sources */,
+				35EC88AA291ACDD500F6BA79 /* minfs_main.c in Sources */,
+				35EC88A8291ACDD500F6BA79 /* minfs_dump.c in Sources */,
+				35EC88B5291ACDD500F6BA79 /* minfs_util.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		35EC8876291ACDBA00F6BA79 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		35EC8877291ACDBA00F6BA79 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		35EC8879291ACDBA00F6BA79 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = c89;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/..";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_CFLAGS = "-Wno-error=implicit-function-declaration";
+			};
+			name = Debug;
+		};
+		35EC887A291ACDBA00F6BA79 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = c89;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/..";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_CFLAGS = "-Wno-error=implicit-function-declaration";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		35EC886C291ACDBA00F6BA79 /* Build configuration list for PBXProject "minfs_tool" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				35EC8876291ACDBA00F6BA79 /* Debug */,
+				35EC8877291ACDBA00F6BA79 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		35EC8878291ACDBA00F6BA79 /* Build configuration list for PBXNativeTarget "minfs_tool" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				35EC8879291ACDBA00F6BA79 /* Debug */,
+				35EC887A291ACDBA00F6BA79 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 35EC8869291ACDBA00F6BA79 /* Project object */;
+}
