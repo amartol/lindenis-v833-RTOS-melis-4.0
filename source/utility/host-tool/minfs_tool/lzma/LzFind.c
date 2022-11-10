@@ -36,7 +36,7 @@ static int LzInWindow_Create(CMatchFinder *p, UInt32 keepSizeReserv, ISzAlloc *a
     {
         LzInWindow_Free(p, alloc);
         p->blockSize = blockSize;
-        p->bufferBase = (Byte *)alloc->Alloc(alloc, (size_t)blockSize);
+        p->bufferBase = (Byte *)alloc->Alloc(alloc, (UInt32)blockSize);
     }
     return (p->bufferBase != 0);
 }
@@ -80,7 +80,7 @@ static void MatchFinder_ReadBlock(CMatchFinder *p)
     for (;;)
     {
         Byte *dest = p->buffer + (p->streamPos - p->pos);
-        size_t size = (p->bufferBase + p->blockSize - dest);
+        UInt32 size = (p->bufferBase + p->blockSize - dest);
         if (size == 0)
             return;
         p->result = p->stream->Read(p->stream, dest, &size);
@@ -101,7 +101,7 @@ void MatchFinder_MoveBlock(CMatchFinder *p)
 {
     memmove(p->bufferBase,
             p->buffer - p->keepSizeBefore,
-            (size_t)(p->streamPos - p->pos + p->keepSizeBefore));
+            (UInt32)(p->streamPos - p->pos + p->keepSizeBefore));
     p->buffer = p->bufferBase + p->keepSizeBefore;
 }
 
@@ -110,7 +110,7 @@ int MatchFinder_NeedMove(CMatchFinder *p)
     if (p->directInput)
         return 0;
     /* if (p->streamEndWasReached) return 0; */
-    return ((size_t)(p->bufferBase + p->blockSize - p->buffer) <= p->keepSizeAfter);
+    return ((UInt32)(p->bufferBase + p->blockSize - p->buffer) <= p->keepSizeAfter);
 }
 
 void MatchFinder_ReadIfRequired(CMatchFinder *p)
@@ -170,7 +170,7 @@ void MatchFinder_Free(CMatchFinder *p, ISzAlloc *alloc)
 
 static CLzRef *AllocRefs(UInt32 num, ISzAlloc *alloc)
 {
-    size_t sizeInBytes = (size_t)num * sizeof(CLzRef);
+    UInt32 sizeInBytes = (UInt32)num * sizeof(CLzRef);
     if (sizeInBytes / sizeof(CLzRef) != num)
         return 0;
     return (CLzRef *)alloc->Alloc(alloc, sizeInBytes);

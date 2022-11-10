@@ -95,8 +95,8 @@ Returns:
   SZ_ERROR_THREAD     - errors in multithreading functions (only for Mt version)
 */
 
-MY_STDAPI LzmaCompress(unsigned char *dest, size_t *destLen, const unsigned char *src, size_t srcLen,
-                       unsigned char *outProps, size_t *outPropsSize);
+MY_STDAPI LzmaCompress(unsigned char *dest, UInt32 *destLen, const unsigned char *src, UInt32 srcLen,
+                       unsigned char *outProps, UInt32 *outPropsSize);
 
 /*
 LzmaUncompress
@@ -117,8 +117,8 @@ Returns:
   SZ_ERROR_INPUT_EOF   - it needs more bytes in input buffer (src)
 */
 
-MY_STDAPI LzmaUncompress(unsigned char *dest, size_t *destLen, const unsigned char *src, SizeT *srcLen,
-                         const unsigned char *props, size_t propsSize);
+MY_STDAPI LzmaUncompress(unsigned char *dest, UInt32 *destLen, const unsigned char *src, SizeT *srcLen,
+                         const unsigned char *props, UInt32 propsSize);
 
 #ifdef __cplusplus
 }

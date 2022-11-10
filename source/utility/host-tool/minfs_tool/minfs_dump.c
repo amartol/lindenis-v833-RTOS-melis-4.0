@@ -20,6 +20,12 @@
 #include <sys/stat.h>
 #include "minfs_tool_i.h"
 
+#define DOTTEXT_OFFSET (strlen(MINFS_DEFAULT_SECTION_NAME) + 1)
+#define DOTRODATA_OFFSET (strlen(MINFS_DEFAULT_SECTION_NAME) + 1 + strlen(".text") + 1)
+#define DOTDATA_OFFSET (strlen(MINFS_DEFAULT_SECTION_NAME) + 1 + strlen(".text") + 1 + strlen(".rodata") + 1)
+#define DOTBSS_OFFSET (strlen(MINFS_DEFAULT_SECTION_NAME) + 1 + strlen(".text") + 1 + strlen(".rodata") + 1 + strlen(".data") + 1)
+#define DOTSHSTRTAB_OFFSET (strlen(MINFS_DEFAULT_SECTION_NAME) + 1 + strlen(".text") + 1 + strlen(".rodata") + 1 + strlen(".data") + 1 + strlen(".bss") + 1)
+
 __bool MINFS_Identify(FILE *hFile)
 {
     __minfs_hdr_t MFSHdr;
@@ -118,30 +124,88 @@ __s32 DumpModuleDataToFile(__dump_context_t *pContext,
     __u8       *pSectionData;
     __minfs_section_hdr_t *pMFSSectionEntry;
 
+#if DEBUG
+    printf("Unpacking module %s of size %d\n", pDEntry->MetaData, pDEntry->UnPackSize);
+#endif
+    
     //allocate buffer for elf file data
-    pBuffer = (__u8 *)malloc(pDEntry->UnPackSize);
+    pBuffer = (__u8 *)malloc(pDEntry->UnPackSize + 300);
     if (pBuffer == NULL)
     {
         MSG("allocate buffer failed\n");
         return EPDK_FAIL;
     }
-    memset(pBuffer, 0, pDEntry->UnPackSize);
-
+    memset(pBuffer, 0, pDEntry->UnPackSize + 300);
+    
+    Elf32_Phdr* programHeader = (Elf32_Phdr*)(pBuffer + sizeof(__elf32_head_t));
+    
     SectionNumber = (pDEntry->ExtentLen / MINFS_SECTION_HDR_LEN);
-    offset        = (sizeof(__elf32_head_t) + \
-                     (SectionNumber + 1) * sizeof(Elf32_Shdr));
-    pSectionHdr   = (Elf32_Shdr *)(pBuffer + sizeof(__elf32_head_t));
+    offset        = (sizeof(__elf32_head_t) + sizeof(Elf32_Phdr) + \
+                     (SectionNumber + 2) * sizeof(Elf32_Shdr));
+    pSectionHdr   = (Elf32_Shdr *)(pBuffer + sizeof(__elf32_head_t) + sizeof(Elf32_Phdr));
     pSectionData  = pBuffer + offset;
     pMFSSectionEntry = (__minfs_section_hdr_t *)(pDEntry->MetaData + \
                        MINFS_ALIGN(pDEntry->NameLen, MINFS_NAME_ALIGN));
+    programHeader->p_offset = offset;
+    
+    u32 totalFileSize = 0;
+    u32 totalMemSize = 0;
+    
+    pSectionHdr->size = 0;
+    pSectionHdr->type = 0;
+    pSectionHdr->name = 0;
+    pSectionHdr->flags = 0;
+    pSectionHdr->offset = 0;
+    pSectionHdr->addr = 0;
+    pSectionHdr->addralign = 0;
+    pSectionHdr->link = 0;
+    
+    pSectionHdr++;
+
     for (index = 0; index < SectionNumber; index++)
     {
+#if DEBUG
+        printf("Section %d\n", index);
+        printf("    offset %d\n", offset);
+        printf("    flags 0x%x\n", pMFSSectionEntry->Flags);
+        printf("    size %d\n", pMFSSectionEntry->Size);
+        printf("    recsize %d\n", pMFSSectionEntry->RecSize);
+        printf("    recunpacksize %d\n", pMFSSectionEntry->RecUnPackSize);
+        printf("    compressed %d\n", pMFSSectionEntry->Attribute & MINFS_SECTION_ATTR_COMPRESS);
+#endif
+        
         pSectionHdr->offset = offset;
         pSectionHdr->name   = 0;
         pSectionHdr->size   = pMFSSectionEntry->Size;
         pSectionHdr->addr   = pMFSSectionEntry->VAddr;
         pSectionHdr->flags  = pMFSSectionEntry->Flags;
         pSectionHdr->type   = pMFSSectionEntry->Type;
+        pSectionHdr->addralign = MINFS_DATA_ALIGN;
+        
+        if (index == 0) {
+            programHeader->p_vaddr = programHeader->p_paddr = pSectionHdr->addr;
+        }
+        
+        switch (pSectionHdr->flags)
+        {
+            case 0x6:
+                pSectionHdr->name = DOTTEXT_OFFSET;
+                break;
+                
+            case 0x2:
+                pSectionHdr->name = DOTRODATA_OFFSET;
+                break;
+                
+            case 0x3:
+                if (pMFSSectionEntry->RecSize == 0)
+                    pSectionHdr->name = DOTBSS_OFFSET;
+                else
+                    pSectionHdr->name = DOTDATA_OFFSET;
+                break;
+        }
+        
+        totalMemSize += pSectionHdr->size;
+        totalFileSize += pMFSSectionEntry->RecUnPackSize;
 
         //copy section data to elf file data buffer
         if (pSectionHdr->size)
@@ -193,11 +257,24 @@ __s32 DumpModuleDataToFile(__dump_context_t *pContext,
     strcpy(pSectionData, MINFS_DEFAULT_SECTION_NAME);
     pSectionData += (strlen(MINFS_DEFAULT_SECTION_NAME) + 1);
     offset       += (strlen(MINFS_DEFAULT_SECTION_NAME) + 1);
-    strcpy(pSectionData, ".strtab");
-    offset       += (strlen(".strtab") + 1);
-    pSectionHdr->name = (strlen(MINFS_DEFAULT_SECTION_NAME) + 1);
-    pSectionHdr->size = (strlen(MINFS_DEFAULT_SECTION_NAME) + 1 \
-                         + strlen(".strtab") + 1);
+    strcpy(pSectionData, ".text");
+    pSectionData += (strlen(".text") + 1);
+    offset += (strlen(".text") + 1);
+    strcpy(pSectionData, ".rodata");
+    pSectionData += (strlen(".rodata") + 1);
+    offset += (strlen(".rodata") + 1);
+    strcpy(pSectionData, ".data");
+    pSectionData += (strlen(".data") + 1);
+    offset += (strlen(".data") + 1);
+    strcpy(pSectionData, ".bss");
+    pSectionData += (strlen(".bss") + 1);
+    offset += (strlen(".bss") + 1);
+    strcpy(pSectionData, ".shstrtab");
+    pSectionData       += (strlen(".shstrtab") + 1);
+    offset       += (strlen(".shstrtab") + 1);
+    pSectionHdr->name = DOTSHSTRTAB_OFFSET;
+    pSectionHdr->size = offset - pSectionHdr->offset;
+    pSectionHdr->type = EELF_SHT_STRTAB;
     MINFS_ALIGN(offset, MINFS_DATA_ALIGN);
 
     //construct elf file header
@@ -206,19 +283,29 @@ __s32 DumpModuleDataToFile(__dump_context_t *pContext,
     pELFHdr->ident[EI_MAG1] = ELFMAG1;
     pELFHdr->ident[EI_MAG2] = ELFMAG2;
     pELFHdr->ident[EI_MAG3] = ELFMAG3;
-    pELFHdr->type           = 0;
-    pELFHdr->machine        = EM_ARM;
-    pELFHdr->version        = 0;
+    pELFHdr->ident[EI_CLASS] = ELFCLASS32;
+    pELFHdr->ident[EI_DATA] = ELFDATA2LSB;
+    pELFHdr->ident[EI_OSABI] = ELFOSABI_SYSV;
+    pELFHdr->ident[EI_VERSION] = EV_CURRENT;
+    pELFHdr->type           = ET_EXEC;
+    pELFHdr->machine        = EM_RISCV;
+    pELFHdr->version        = EV_CURRENT;
     pELFHdr->entry          = 0;
-    pELFHdr->phoff          = 0;
-    pELFHdr->shoff          = sizeof(__elf32_head_t);
-    pELFHdr->flags          = 0;
+    pELFHdr->phoff          = sizeof(__elf32_head_t);
+    pELFHdr->shoff          = sizeof(__elf32_head_t) + sizeof(Elf32_Phdr);
+    pELFHdr->flags          = 5;
     pELFHdr->ehsize         = sizeof(__elf32_head_t);
     pELFHdr->phentsize      = sizeof(Elf32_Phdr);
-    pELFHdr->phnum          = 0;
+    pELFHdr->phnum          = 1;
     pELFHdr->shentsize      = sizeof(Elf32_Shdr);
-    pELFHdr->shnum          = index + 1;
-    pELFHdr->shstrndx       = index;
+    pELFHdr->shnum          = index + 2;
+    pELFHdr->shstrndx       = index + 1;
+    
+    programHeader->p_type = PT_LOAD;
+    programHeader->p_memsz = totalMemSize;
+    programHeader->p_filesz = totalFileSize;
+    programHeader->p_flags = PF_R | PF_W | PF_X;
+    programHeader->p_align = MINFS_DATA_ALIGN;
 
     DumpDataToFile(pStorePath, pBuffer, offset);
 
@@ -269,8 +356,8 @@ __s32 DumpDirNest(__dump_context_t *pContext, __minfs_dentry_t *pDir, __u8 *pPn)
     {
         memcpy(MFSDEntryName, pDEntry->MetaData, pDEntry->NameLen);
         MFSDEntryName[pDEntry->NameLen] = 0;
-        sprintf(tmpPath, "%s\\%s", pPn, MFSDEntryName);
-        sprintf(DumpName, "%s\\%s", pContext->StoreDir, tmpPath);
+        sprintf(tmpPath, "%s/%s", pPn, MFSDEntryName);
+        sprintf(DumpName, "%s/%s", pContext->StoreDir, tmpPath);
         if (pDEntry->Attribute & MINFS_ATTR_DIR)
         {
             pContext->DirNum++;

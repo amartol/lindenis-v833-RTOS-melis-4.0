@@ -8,7 +8,7 @@ Public domain */
 #include "LzmaLib.h"
 #include "stdlib.h"
 
-static void *SzAlloc(void *p, size_t size)
+static void *SzAlloc(void *p, uint32_t size)
 {
     p = p;
     return malloc(size);
@@ -20,9 +20,9 @@ static void SzFree(void *p, void *address)
 }
 static ISzAlloc g_Alloc = { SzAlloc, SzFree };
 
-MY_STDAPI LzmaCompress(unsigned char *dest, size_t  *destLen,
-                       const unsigned char *src, size_t  srcLen,
-                       unsigned char *outProps, size_t *outPropsSize)
+MY_STDAPI LzmaCompress(unsigned char *dest, UInt32  *destLen,
+                       const unsigned char *src, UInt32  srcLen,
+                       unsigned char *outProps, UInt32 *outPropsSize)
 {
     CLzmaEncProps props;
     LzmaEncProps_Init(&props);
@@ -40,9 +40,9 @@ MY_STDAPI LzmaCompress(unsigned char *dest, size_t  *destLen,
 }
 
 
-MY_STDAPI LzmaUncompress(unsigned char *dest, size_t  *destLen,
-                         const unsigned char *src, size_t *srcLen,
-                         const unsigned char *props, size_t propsSize)
+MY_STDAPI LzmaUncompress(unsigned char *dest, UInt32  *destLen,
+                         const unsigned char *src, UInt32 *srcLen,
+                         const unsigned char *props, UInt32 propsSize)
 {
     ELzmaStatus status;
     return LzmaDecode(dest, destLen,

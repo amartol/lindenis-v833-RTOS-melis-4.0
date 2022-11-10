@@ -974,7 +974,7 @@ SRes LzmaDec_Allocate(CLzmaDec *p, const Byte *props, unsigned propsSize, ISzAll
     return SZ_OK;
 }
 
-SRes LzmaDecode(Byte *dest, SizeT *destLen, const Byte *src, SizeT *srcLen,
+SRes LzmaDecode(Byte *dest, UInt32 *destLen, const Byte *src, UInt32 *srcLen,
                 const Byte *propData, unsigned propSize, ELzmaFinishMode finishMode,
                 ELzmaStatus *status, ISzAlloc *alloc)
 {

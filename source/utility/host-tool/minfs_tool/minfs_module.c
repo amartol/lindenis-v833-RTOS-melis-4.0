@@ -239,6 +239,10 @@ __s32 MINFS_LoadModuleFile(const char *pFullPath,
     __u32                    MFSSctLen;
     __u32                    SctDataOffset;
 
+#if DEBUG
+    printf("Packing %s\n", pFullPath);
+#endif
+    
     //parse this file config parameters
     if (MINFS_ParseFileConfigPara(pConfig, pFullPath, &FilePara) != EPDK_OK)
     {
@@ -332,6 +336,12 @@ __s32 MINFS_LoadModuleFile(const char *pFullPath,
             pMFSSctHdr->Offset = SctDataOffset;
             pMFSSctHdr->RecSize = MFSSctLen;
             pMFSSctHdr->RecUnPackSize = pSHdr->size;
+            printf("Section %d\n", Index);
+            printf("    offset %d\n", pMFSSctHdr->Offset);
+            printf("    size %d\n", pMFSSctHdr->Size);
+            printf("    recsize %d\n", pMFSSctHdr->RecSize);
+            printf("    recunpacksize %d\n", pMFSSctHdr->RecUnPackSize);
+            printf("    compressed %d\n", pMFSSctHdr->Attribute & MINFS_SECTION_ATTR_COMPRESS);
         }
 
         //adjust current data offset
@@ -349,6 +359,14 @@ __s32 MINFS_LoadModuleFile(const char *pFullPath,
     pDEntry->RecLen    += (pDEntry->ExtentLen);
     pDEntry->Size       = FileLen;
     pDEntry->UnPackSize = GetELFFileSize(hPSR);
+
+#if DEBUG
+    printf("Size: %d\n", pDEntry->Size);
+    printf("UnPackSize: %d\n", pDEntry->UnPackSize);
+    printf("Sections: %d\n", MFSSctCnt);
+    printf("ExtentLen: %d\n", pDEntry->ExtentLen);
+#endif
+
     if (FilePara.CompressON)
     {
         pDEntry->Attribute |= MINFS_ATTR_COMPRESS;
@@ -394,8 +412,11 @@ __bool MINFS_ValidModuleFile(const char *pFile)
         MSG("MINFS_ValidModuleFile : open file [%s] failed\n", pFile);
         return 0;
     }
-    fread(&ElfHdr, 1, sizeof(__elf32_head_t), hFile);
+    size_t numbytes = fread(&ElfHdr, 1, sizeof(__elf32_head_t), hFile);
     fclose(hFile);
+    
+    if (numbytes != sizeof(__elf32_head_t))
+        return 0; // else we check uninitialized memory and succeed
 
     //melis system module file type : elf
     if ((ElfHdr.ident[EI_MAG0] == ELFMAG0) &&

@@ -104,7 +104,8 @@ typedef struct __ELF32HEAD
 #define     EM_MIPS_RS4_BE      10                  // MIPS R4000 big-endian
 #define     EM_ARM              40                  // ARM
 #define     EM_MIPS_X           51                  // Stanford MIPS-X
-#define     EM_NUM              54
+#define     EM_RISCV            0xF3
+#define     EM_NUM              0xF4
 
 // Legal values for e_version (version).
 #define     EV_NONE             0                   // Invalid ELF version

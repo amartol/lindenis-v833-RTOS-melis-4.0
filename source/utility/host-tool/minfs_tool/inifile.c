@@ -353,7 +353,7 @@ GetPrivateProfileSection(LPCSTR lpAppName, LPSTR lpReturnedString, DWORD nSize, 
     strcat(tmpstr, lpAppName);
     strcat(tmpstr, "]");
 
-    int endFlag;
+    int endFlag = 0;
     while (!feof(fp))
     {
         rtnval = fgetc(fp);
@@ -405,6 +405,9 @@ GetPrivateProfileSection(LPCSTR lpAppName, LPSTR lpReturnedString, DWORD nSize, 
 #ifdef DEBUG
             printf("Line %s\n", szLine);
 #endif
+            if (endFlag == 1)
+                break;
+
             szLine[--i] = '\0';
             if (szLine[--i] == '\r')
                 szLine[i--] = '\0';

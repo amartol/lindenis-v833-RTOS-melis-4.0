@@ -39,7 +39,7 @@ typedef struct _CMatchFinder
 
     UInt32 numHashBytes;
     int directInput;
-    size_t directInputRem;
+    UInt32 directInputRem;
     int btMode;
     int bigHash;
     UInt32 historySize;

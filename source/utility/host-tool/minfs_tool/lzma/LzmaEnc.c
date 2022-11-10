@@ -103,7 +103,7 @@ UInt32 GetPosSlot1(UInt32 pos)
 
 #else
 
-#define kNumLogBits (9 + (int)sizeof(size_t) / 2)
+#define kNumLogBits (9 + (int)sizeof(UInt32) / 2)
 #define kDicLogSizeMaxCompress ((kNumLogBits - 1) * 2 + 7)
 
 void LzmaEnc_FastPosInit(Byte *g_FastPos)
@@ -498,7 +498,7 @@ static void RangeEnc_Init(CRangeEnc *p)
 
 static void RangeEnc_FlushStream(CRangeEnc *p)
 {
-    size_t num;
+    UInt32 num;
     if (p->res != SZ_OK)
         return;
     num = p->buf - p->bufBase;
@@ -2092,7 +2092,7 @@ typedef struct
     Bool overflow;
 } CSeqOutStreamBuf;
 
-static size_t MyWrite(void *pp, const void *data, size_t size)
+static UInt32 MyWrite(void *pp, const void *data, UInt32 size)
 {
     CSeqOutStreamBuf *p = (CSeqOutStreamBuf *)pp;
     if (p->rem < size)
@@ -2120,7 +2120,7 @@ const Byte *LzmaEnc_GetCurBuf(CLzmaEncHandle pp)
 }
 
 SRes LzmaEnc_CodeOneMemBlock(CLzmaEncHandle pp, Bool reInit,
-                             Byte *dest, size_t *destLen, UInt32 desiredPackSize, UInt32 *unpackSize)
+                             Byte *dest, UInt32 *destLen, UInt32 desiredPackSize, UInt32 *unpackSize)
 {
     CLzmaEnc *p = (CLzmaEnc *)pp;
     UInt64 nowPos64;

@@ -24,6 +24,10 @@ HELFPSR *LoadELFFile(const char *filename)
     FILE         *hFile;
     elf_parser_t *pPSR;
 
+#if DEBUG
+    printf("Loading %s\n", filename);
+#endif
+    
     pPSR = (elf_parser_t *)malloc(sizeof(elf_parser_t));
     if (pPSR == NULL)
     {
@@ -41,6 +45,10 @@ HELFPSR *LoadELFFile(const char *filename)
     //get file size
     fseek(hFile, 0, SEEK_END);
     pPSR->fileLen = (__u32)ftell(hFile);
+#if DEBUG
+    printf("File size %d\n", pPSR->fileLen);
+#endif
+
     fseek(hFile, 0, SEEK_SET);
 
 

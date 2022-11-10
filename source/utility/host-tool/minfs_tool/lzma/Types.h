@@ -86,10 +86,10 @@ typedef unsigned long long int UInt64;
 
 #endif
 
-#ifdef _LZMA_NO_SYSTEM_SIZE_T
+#ifdef _LZMA_NO_SYSTEM_UInt32
 typedef UInt32 SizeT;
 #else
-typedef size_t SizeT;
+typedef UInt32 SizeT;
 #endif
 
 typedef int Bool;
@@ -136,19 +136,19 @@ typedef struct
 
 typedef struct
 {
-    SRes(*Read)(void *p, void *buf, size_t *size);
+    SRes(*Read)(void *p, void *buf, UInt32 *size);
     /* if (input(*size) != 0 && output(*size) == 0) means end_of_stream.
        (output(*size) < input(*size)) is allowed */
 } ISeqInStream;
 
 /* it can return SZ_ERROR_INPUT_EOF */
-SRes SeqInStream_Read(ISeqInStream *stream, void *buf, size_t size);
-SRes SeqInStream_Read2(ISeqInStream *stream, void *buf, size_t size, SRes errorType);
+SRes SeqInStream_Read(ISeqInStream *stream, void *buf, UInt32 size);
+SRes SeqInStream_Read2(ISeqInStream *stream, void *buf, UInt32 size, SRes errorType);
 SRes SeqInStream_ReadByte(ISeqInStream *stream, Byte *buf);
 
 typedef struct
 {
-    size_t (*Write)(void *p, const void *buf, size_t size);
+    UInt32 (*Write)(void *p, const void *buf, UInt32 size);
     /* Returns: result - the number of actually written bytes.
        (result < size) means error */
 } ISeqOutStream;
@@ -162,30 +162,30 @@ typedef enum
 
 typedef struct
 {
-    SRes(*Read)(void *p, void *buf, size_t *size);   /* same as ISeqInStream::Read */
+    SRes(*Read)(void *p, void *buf, UInt32 *size);   /* same as ISeqInStream::Read */
     SRes(*Seek)(void *p, Int64 *pos, ESzSeek origin);
 } ISeekInStream;
 
 typedef struct
 {
-    SRes(*Look)(void *p, const void **buf, size_t *size);
+    SRes(*Look)(void *p, const void **buf, UInt32 *size);
     /* if (input(*size) != 0 && output(*size) == 0) means end_of_stream.
        (output(*size) > input(*size)) is not allowed
        (output(*size) < input(*size)) is allowed */
-    SRes(*Skip)(void *p, size_t offset);
+    SRes(*Skip)(void *p, UInt32 offset);
     /* offset must be <= output(*size) of Look */
 
-    SRes(*Read)(void *p, void *buf, size_t *size);
+    SRes(*Read)(void *p, void *buf, UInt32 *size);
     /* reads directly (without buffer). It's same as ISeqInStream::Read */
     SRes(*Seek)(void *p, Int64 *pos, ESzSeek origin);
 } ILookInStream;
 
-SRes LookInStream_LookRead(ILookInStream *stream, void *buf, size_t *size);
+SRes LookInStream_LookRead(ILookInStream *stream, void *buf, UInt32 *size);
 SRes LookInStream_SeekTo(ILookInStream *stream, UInt64 offset);
 
 /* reads via ILookInStream::Read */
-SRes LookInStream_Read2(ILookInStream *stream, void *buf, size_t size, SRes errorType);
-SRes LookInStream_Read(ILookInStream *stream, void *buf, size_t size);
+SRes LookInStream_Read2(ILookInStream *stream, void *buf, UInt32 size, SRes errorType);
+SRes LookInStream_Read(ILookInStream *stream, void *buf, UInt32 size);
 
 #define LookToRead_BUF_SIZE (1 << 14)
 
@@ -193,8 +193,8 @@ typedef struct
 {
     ILookInStream s;
     ISeekInStream *realStream;
-    size_t pos;
-    size_t size;
+    UInt32 pos;
+    UInt32 size;
     Byte buf[LookToRead_BUF_SIZE];
 } CLookToRead;
 
@@ -226,7 +226,7 @@ typedef struct
 
 typedef struct
 {
-    void *(*Alloc)(void *p, size_t size);
+    void *(*Alloc)(void *p, UInt32 size);
     void (*Free)(void *p, void *address); /* address can be 0 */
 } ISzAlloc;
 
