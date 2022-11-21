@@ -136,18 +136,18 @@ __s32 MINFS_CalcMFSFile(const char *pFullPath,
                                         &ExtentLen, &FDataLen, pConfig) != EPDK_OK)
             {
                 MSG("calculate module file [%s] "\
-                    "inoformation failed\n", pFullPath);
+                    "information failed\n", pFullPath);
                 return EPDK_FAIL;
             }
         }
         else
         {
-            //no need to calcute file data length
+            //no need to calculate file data length
             if (MINFS_CalcMFSModuleFile(pFullPath, \
                                         &ExtentLen, NULL, pConfig) != EPDK_OK)
             {
                 MSG("calculate module file [%s] "\
-                    "inoformation failed\n", pFullPath);
+                    "information failed\n", pFullPath);
                 return EPDK_FAIL;
             }
             FDataLen = 0;
@@ -197,9 +197,9 @@ __s32 MINFS_CalcMFSFile(const char *pFullPath,
     RecLen   = MINFS_ALIGN(RecLen, MINFS_DENTRY_ALIGN);
     FDataLen = MINFS_ALIGN(FDataLen, MINFS_DATA_ALIGN);
 
-    //update minfs image paraters
+    //update minfs image parameters
     pMFSPara->DEntryLen += RecLen;
-    pMFSPara->DEnrtyNum += 1;
+    pMFSPara->DEntryNum += 1;
     pMFSPara->FDataLen  += FDataLen;
 
     //this file process succeeded
@@ -227,7 +227,7 @@ __s32 MINFS_CalcMFSDir(const char *pDir,
     while ((filename = readdir(dir)) != NULL)
     {
         //目录结构下面问什么会有两个.和..的目录？ 跳过着两个目录
-        if (!strcmp(filename->d_name, ".") || !strcmp(filename->d_name, ".."))
+        if (!strcmp(filename->d_name, ".") || !strcmp(filename->d_name, "..") || !strcmp(filename->d_name, ".DS_Store"))
             continue;
 
         //非常好用的一个函数，比什么字符串拼接什么的来的快的多
@@ -246,7 +246,7 @@ __s32 MINFS_CalcMFSDir(const char *pDir,
 
             //update minfs image paraters
             pMFSPara->DEntryLen += RecLen;
-            pMFSPara->DEnrtyNum += 1;
+            pMFSPara->DEntryNum += 1;
 
         }
         else if (S_ISREG(s.st_mode))
@@ -271,7 +271,7 @@ __s32 MINFS_CalcMFSDir(const char *pDir,
     {
         //the first level directory,
         //set minfs image root parameters.
-        pMFSPara->RootDEntryNum = pMFSPara->DEnrtyNum;
+        pMFSPara->RootDEntryNum = pMFSPara->DEntryNum;
         pMFSPara->RootDEntryLen = pMFSPara->DEntryLen;
     }
     return ret;
@@ -284,7 +284,7 @@ __s32 MINFS_CalcMFSImagePara(const char *pDir, __minfs_para_t *pMFSPara, __minfs
     ret = MINFS_CalcMFSDir(pDir, pMFSPara, pConfig);
     if (ret != EPDK_OK)
     {
-        MSG("Calculate diretory [%s] MINFS parameter failed\n", pDir);
+        MSG("Calculate directory [%s] MINFS parameter failed\n", pDir);
         return EPDK_FAIL;
     }
 
@@ -301,7 +301,7 @@ __s32 MINFS_CalcMFSImagePara(const char *pDir, __minfs_para_t *pMFSPara, __minfs
     while ((filename = readdir(dir)) != NULL)
     {
         //目录结构下面问什么会有两个.和..的目录？ 跳过着两个目录
-        if (!strcmp(filename->d_name, ".") || !strcmp(filename->d_name, ".."))
+        if (!strcmp(filename->d_name, ".") || !strcmp(filename->d_name, "..") || !strcmp(filename->d_name, ".DS_Store"))
             continue;
 
         //非常好用的一个函数，比什么字符串拼接什么的来的快的多

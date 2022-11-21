@@ -24,7 +24,7 @@ typedef struct __MINFS_PARA
     __bool  FDataCalcEn;
     __u32   RootDEntryNum;
     __u32   RootDEntryLen;
-    __u32   DEnrtyNum;
+    __u32   DEntryNum;
     __u32   DEntryLen;
     __u32   FDataLen;
 } __minfs_para_t;

@@ -308,6 +308,29 @@ __s32 MINFS_ProcessFile(const char *pFullPath,
     return EPDK_OK;
 }
 
+static int
+strncasecmp2(s1, s2, length)
+    const char *s1;        /* First string. */
+    const char *s2;        /* Second string. */
+    size_t length;        /* Maximum number of characters to compare
+                 * (stop earlier if the end of either string
+                 * is reached). */
+{
+    for (; length != 0; length--, s1++, s2++) {
+        if (tolower(*s1) != tolower(*s2)) {
+            return tolower(*s1) - tolower(*s2);
+        }
+        if (*s1 == '\0') {
+            return 0;
+        }
+    }
+    return 0;
+}
+
+static int alphacasesort(const struct dirent ** a, const struct dirent ** b) {
+    return strncasecmp2((*a)->d_name, (*b)->d_name, FILENAME_MAX);
+}
+
 __s32 MINFS_ProcessDir(const char *pDir,
                        __minfs_context_t *pContext,
                        __minfs_config_t *pImageConfig)
@@ -343,19 +366,16 @@ __s32 MINFS_ProcessDir(const char *pDir,
     DEntrySize = 0;
 
     char path[512];
-    struct dirent *filename;//readdir 的返回类型
-    DIR *dir;//血的教训阿，不要随便把变量就设成全局变量。。。。
-    dir = opendir(pDir);
-    if (dir == NULL)
+    
+    struct dirent** entries;
+    int count = scandir(pDir, &entries, NULL, alphacasesort);
+    int i;
+    
+    for (i = 0; i < count; i++)
     {
-        printf("open dir %s error!\n", pDir);
-        exit(1);
-    }
-
-    while ((filename = readdir(dir)) != NULL)
-    {
+        struct dirent *filename = entries[i];
         //目录结构下面问什么会有两个.和..的目录？ 跳过着两个目录
-        if (!strcmp(filename->d_name, ".") || !strcmp(filename->d_name, ".."))
+        if (!strcmp(filename->d_name, ".") || !strcmp(filename->d_name, "..") || !strcmp(filename->d_name, ".DS_Store"))
             continue;
 
         //非常好用的一个函数，比什么字符串拼接什么的来的快的多
@@ -404,7 +424,7 @@ __s32 MINFS_ProcessDir(const char *pDir,
             DEntrySize                += FEntryLen;
         }
     }
-    closedir(dir);
+    free(entries);
 
     if (pDirEntry)
     {
@@ -429,17 +449,13 @@ __s32 MINFS_MakeImage(const char *pDir,
     }
 
     char path[512];
-    struct dirent *filename;//readdir 的返回类型
-    DIR *dir;//血的教训阿，不要随便把变量就设成全局变量。。。。
-    dir = opendir(pDir);
-    if (dir == NULL)
-    {
-        printf("open dir %s error!\n", pDir);
-        exit(1);
-    }
+    struct dirent** entries;
+    int count = scandir(pDir, &entries, NULL, alphacasesort);
+    int i;
 
-    while ((filename = readdir(dir)) != NULL)
+    for (i = 0; i < count; i++)
     {
+        struct dirent *filename = entries[i];
         //目录结构下面问什么会有两个.和..的目录？ 跳过着两个目录
         if (!strcmp(filename->d_name, ".") || !strcmp(filename->d_name, ".."))
             continue;
@@ -461,6 +477,6 @@ __s32 MINFS_MakeImage(const char *pDir,
 
         }
     }
-    closedir(dir);
+    free(entries);
     return ret;
 }

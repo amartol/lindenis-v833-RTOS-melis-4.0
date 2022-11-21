@@ -183,9 +183,11 @@ __s32 MINFS_CalcMFSModuleFile(const char *pFullPath,
             //just fliter this section
             continue;
         }
+        pSHdr = GetSectionHeader(hPSR, Index);
+        if (pSHdr->type == EELF_SHT_NULL)
+            continue; // don't duplicate null sections, it will be restored on unpacking
         if (FDataLen)
         {
-            pSHdr = GetSectionHeader(hPSR, Index);
             if (pSHdr->type != EELF_SHT_NOBITS)
             {
                 //this section should allocate file data space
@@ -276,7 +278,7 @@ __s32 MINFS_LoadModuleFile(const char *pFullPath,
         if (MINFS_ValidModuleSection(tmpName) == 0)
         {
             //invalid melis module seciton,
-            //just fliter this section
+            //just filter this section
             continue;
         }
         pMFSSctHdr->Attribute = 0;
@@ -286,6 +288,8 @@ __s32 MINFS_LoadModuleFile(const char *pFullPath,
             pMFSSctHdr->Attribute |= MINFS_SECTION_ATTR_MAGIC;
         }
         pSHdr = GetSectionHeader(hPSR, Index);
+        if (pSHdr->type == EELF_SHT_NULL)
+            continue; // don't duplicate null sections, it will be restored on unpacking
 
         //the parameters of a section is identify to elf spec
         pMFSSctHdr->Size  = pSHdr->size;

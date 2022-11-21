@@ -128,7 +128,7 @@ int main(int argc, char *argv[])
         MSG("----------------------------------------------------------------------\n");
         MSG("directory [%s] minfs image size information\n", RootDir);
         MSG("image file size    : [%8d]\n", ImageLen);
-        MSG("DEntry count       : [%8d]\n", MFSImagePara.DEnrtyNum);
+        MSG("DEntry count       : [%8d]\n", MFSImagePara.DEntryNum);
         MSG("DEntry length      : [%8d]\n", MFSImagePara.DEntryLen);
         MSG("Data   length      : [%8d]\n", MFSImagePara.FDataLen);
         MSG("----------------------------------------------------------------------\n");

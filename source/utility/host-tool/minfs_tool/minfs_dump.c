@@ -18,6 +18,7 @@
 */
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/syslimits.h>
 #include "minfs_tool_i.h"
 
 #define DOTTEXT_OFFSET (strlen(MINFS_DEFAULT_SECTION_NAME) + 1)
@@ -25,6 +26,7 @@
 #define DOTDATA_OFFSET (strlen(MINFS_DEFAULT_SECTION_NAME) + 1 + strlen(".text") + 1 + strlen(".rodata") + 1)
 #define DOTBSS_OFFSET (strlen(MINFS_DEFAULT_SECTION_NAME) + 1 + strlen(".text") + 1 + strlen(".rodata") + 1 + strlen(".data") + 1)
 #define DOTSHSTRTAB_OFFSET (strlen(MINFS_DEFAULT_SECTION_NAME) + 1 + strlen(".text") + 1 + strlen(".rodata") + 1 + strlen(".data") + 1 + strlen(".bss") + 1)
+#define MAGIC_OFFSET (strlen(MINFS_DEFAULT_SECTION_NAME) + 1 + strlen(".text") + 1 + strlen(".rodata") + 1 + strlen(".data") + 1 + strlen(".bss") + 1 + strlen(".shstrtab") + 1)
 
 __bool MINFS_Identify(FILE *hFile)
 {
@@ -166,12 +168,15 @@ __s32 DumpModuleDataToFile(__dump_context_t *pContext,
     {
 #if DEBUG
         printf("Section %d\n", index);
-        printf("    offset %d\n", offset);
+        printf("    ELF offset %d\n", offset);
+        printf("    file offset %d\n", pMFSSectionEntry->Offset);
         printf("    flags 0x%x\n", pMFSSectionEntry->Flags);
         printf("    size %d\n", pMFSSectionEntry->Size);
         printf("    recsize %d\n", pMFSSectionEntry->RecSize);
         printf("    recunpacksize %d\n", pMFSSectionEntry->RecUnPackSize);
+        printf("    type %d\n", pMFSSectionEntry->Type);
         printf("    compressed %d\n", pMFSSectionEntry->Attribute & MINFS_SECTION_ATTR_COMPRESS);
+        printf("    magic %d\n", pMFSSectionEntry->Attribute & MINFS_SECTION_ATTR_MAGIC);
 #endif
         
         pSectionHdr->offset = offset;
@@ -203,6 +208,9 @@ __s32 DumpModuleDataToFile(__dump_context_t *pContext,
                     pSectionHdr->name = DOTDATA_OFFSET;
                 break;
         }
+        
+        if (pMFSSectionEntry->Attribute & MINFS_SECTION_ATTR_MAGIC)
+            pSectionHdr->name = MAGIC_OFFSET;
         
         totalMemSize += pSectionHdr->size;
         totalFileSize += pMFSSectionEntry->RecUnPackSize;
@@ -272,6 +280,9 @@ __s32 DumpModuleDataToFile(__dump_context_t *pContext,
     strcpy(pSectionData, ".shstrtab");
     pSectionData       += (strlen(".shstrtab") + 1);
     offset       += (strlen(".shstrtab") + 1);
+    strcpy(pSectionData, MINFS_MODULE_MAGIC);
+    pSectionData       += (strlen(MINFS_MODULE_MAGIC) + 1);
+    offset       += (strlen(MINFS_MODULE_MAGIC) + 1);
     pSectionHdr->name = DOTSHSTRTAB_OFFSET;
     pSectionHdr->size = offset - pSectionHdr->offset;
     pSectionHdr->type = EELF_SHT_STRTAB;
@@ -362,6 +373,7 @@ __s32 DumpDirNest(__dump_context_t *pContext, __minfs_dentry_t *pDir, __u8 *pPn)
         {
             pContext->DirNum++;
             //_mkdir(DumpName);
+            printf("Unpacking %s\n", tmpPath);
             mkdir(DumpName, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 
             //nest

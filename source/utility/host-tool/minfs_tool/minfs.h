@@ -67,7 +67,7 @@ typedef struct __MINFS_DENTRY
 //length of minfs dentry
 #define MINFS_DENTRY_LEN    (sizeof(__minfs_dentry_t) - MINFS_NAME_LEN - 1)
 
-//attributes of Minfs directory entey
+//attributes of Minfs directory entry
 #define MINFS_ATTR_DIR          1       //directory
 #define MINFS_ATTR_MODULE       2       //valid module file of melis system
 #define MINFS_ATTR_COMPRESS     4       //file data been compessed

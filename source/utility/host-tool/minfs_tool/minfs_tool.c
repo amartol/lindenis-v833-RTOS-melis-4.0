@@ -134,7 +134,7 @@ __s32 MINFS_Create(const char *pDir, const char *pFile, const char *pConfig)
     pMinfsHdr->Version      = MINFS_VERSION;
     pMinfsHdr->RootDirOffset = MINFS_HDR_LEN;
     pMinfsHdr->RootDirSize  = MFSImagePara.RootDEntryLen;
-    pMinfsHdr->DEntryNum    = MFSImagePara.DEnrtyNum;
+    pMinfsHdr->DEntryNum    = MFSImagePara.DEntryNum;
     pMinfsHdr->DEntryLen    = MFSImagePara.DEntryLen;
     pMinfsHdr->FDataLen     = MFSImagePara.FDataLen;
     pMinfsHdr->Size         = ImageConfig.Size;
@@ -153,7 +153,7 @@ __s32 MINFS_Create(const char *pDir, const char *pFile, const char *pConfig)
     MSG("make minfs image file [%s] succeeded\n", pFile);
     MSG("image config size  : [%8d]\n", ImageConfig.Size);
     MSG("image used   size  : [%8d]\n", Context.CurDataOffset);
-    MSG("DEntry count       : [%8d]\n", MFSImagePara.DEnrtyNum);
+    MSG("DEntry count       : [%8d]\n", MFSImagePara.DEntryNum);
     MSG("DEntry length      : [%8d]\n", MFSImagePara.DEntryLen);
     MSG("FData  length      : [%8d]\n", MFSImagePara.FDataLen);
     MSG("-------------------------------------------------------------\n");
