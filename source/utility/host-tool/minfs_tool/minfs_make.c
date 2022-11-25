@@ -375,7 +375,7 @@ __s32 MINFS_ProcessDir(const char *pDir,
     {
         struct dirent *filename = entries[i];
         //目录结构下面问什么会有两个.和..的目录？ 跳过着两个目录
-        if (!strcmp(filename->d_name, ".") || !strcmp(filename->d_name, "..") || !strcmp(filename->d_name, ".DS_Store"))
+        if (!strcmp(filename->d_name, ".") || !strcmp(filename->d_name, "..") || !strcmp(filename->d_name, ".DS_Store") || !strcmp(filename->d_name, ".git") || !strcmp(filename->d_name, ".gitignore"))
             continue;
 
         //非常好用的一个函数，比什么字符串拼接什么的来的快的多
@@ -457,7 +457,7 @@ __s32 MINFS_MakeImage(const char *pDir,
     {
         struct dirent *filename = entries[i];
         //目录结构下面问什么会有两个.和..的目录？ 跳过着两个目录
-        if (!strcmp(filename->d_name, ".") || !strcmp(filename->d_name, ".."))
+        if (!strcmp(filename->d_name, ".") || !strcmp(filename->d_name, "..") || !strcmp(filename->d_name, ".git") || !strcmp(filename->d_name, ".gitignore"))
             continue;
 
         //非常好用的一个函数，比什么字符串拼接什么的来的快的多
