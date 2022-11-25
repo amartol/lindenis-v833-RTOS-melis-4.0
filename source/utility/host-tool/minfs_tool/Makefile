@@ -1,5 +1,5 @@
-cc = gcc -static -finput-charset=UTF-8 -g -Wall
-ccflag-s = -I./  -m32
+cc = gcc -finput-charset=UTF-8 -g -Wall -Wno-implicit-function-declaration
+ccflag-s = -I./  
 
 lzma = lzma/LzFind.c lzma/LzmaDec.c lzma/LzmaEnc.c lzma/LzmaLib.c
 
