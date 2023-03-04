@@ -1,4 +1,4 @@
-cc = gcc -finput-charset=UTF-8 -g -Wall -Wno-implicit-function-declaration
+cc = gcc -finput-charset=UTF-8 -g -Wall -Wno-implicit-function-declaration -fsanitize=address
 ccflag-s = -I./  
 
 lzma = lzma/LzFind.c lzma/LzmaDec.c lzma/LzmaEnc.c lzma/LzmaLib.c
