@@ -7,6 +7,7 @@ Public domain */
 #include "LzmaDec.h"
 #include "LzmaLib.h"
 #include "stdlib.h"
+#include <stdint.h>
 
 static void *SzAlloc(void *p, uint32_t size)
 {

@@ -18,8 +18,10 @@
 */
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <sys/syslimits.h>
+#include <limits.h>
 #include "minfs_tool_i.h"
+
+#define MAX_PATH PATH_MAX
 
 #define DOTTEXT_OFFSET (strlen(MINFS_DEFAULT_SECTION_NAME) + 1)
 #define DOTRODATA_OFFSET (strlen(MINFS_DEFAULT_SECTION_NAME) + 1 + strlen(".text") + 1)
