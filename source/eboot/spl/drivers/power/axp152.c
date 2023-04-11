@@ -43,10 +43,12 @@ static axp_contrl_info axp_ctrl_tbl[] = {
 	  AXP152_OUTPUT_CTL, 7 },
 	{ "dcdc2", 700, 2275, AXP152_DC2OUT_VOL, 0x3f, 25, 0, 0,
 	  AXP152_OUTPUT_CTL, 6 },
-	{ "dcdc3", 700, 3500, AXP152_DC3OUT_VOL, 0x3f, 25, 0, 0,
+	{ "dcdc3", 700, 3500, AXP152_DC3OUT_VOL, 0x3f, 50, 0, 0,
 	  AXP152_OUTPUT_CTL, 5 },
-	{ "aldo1", 1200, 3300, AXP152_ALDO12OUT_VOL, 0x0f, 100, 0, 0,
+	{ "aldo1", 1200, 3300, AXP152_ALDO12OUT_VOL, 0xf0, 100, 0, 0,
 	  AXP152_OUTPUT_CTL, 3 },
+    /*{ "gpio2ldo", 1800, 3300, AXP152_GPIO2_LDO_MOD, 0x0f, 100, 0, 0,
+	  AXP152_GPIO2_CTL, 1 },*/
 
 };
 #define PMU_POWER_KEY_STATUS AXP152_INTSTS1
@@ -89,7 +91,8 @@ static int pmu_set_vol(char *name, int set_vol, int onoff)
 	u8 reg_value;
 	axp_contrl_info *p_item = NULL;
 	u8 base_step;
-
+    u8 shift;
+    
 	if (set_vol <= 0)
 		return 0;
 
@@ -105,7 +108,8 @@ static int pmu_set_vol(char *name, int set_vol, int onoff)
 		p_item->cfg_reg_addr, p_item->cfg_reg_mask, p_item->step0_val,
 		p_item->split1_val, p_item->step1_val, p_item->ctrl_reg_addr,
 		p_item->ctrl_bit_ofs);
-
+        
+    shift = (p_item->cfg_reg_addr == AXP152_ALDO12OUT_VOL) ? 4 : 0;
 	if (set_vol < p_item->min_vol) {
 		set_vol = p_item->min_vol;
 	} else if (set_vol > p_item->max_vol) {
@@ -113,6 +117,7 @@ static int pmu_set_vol(char *name, int set_vol, int onoff)
 	}
 	if (pmic_bus_read(AXP152_RUNTIME_ADDR, p_item->cfg_reg_addr,
 			  &reg_value)) {
+        pmu_err("error read reg 0x%x!\n",p_item->cfg_reg_addr);
 		return -1;
 	}
 
@@ -125,7 +130,7 @@ static int pmu_set_vol(char *name, int set_vol, int onoff)
 			     p_item->step0_val;
 		reg_value |=
 			(base_step +
-			 (set_vol - p_item->split2_val) / p_item->step2_val);
+			 (set_vol - p_item->split2_val) / p_item->step2_val) << shift;
 	} else if (p_item->split1_val && (set_vol > p_item->split1_val)) {
 		if (p_item->split1_val < p_item->min_vol) {
 			pmu_err("bad split val(%d) for %s\n",
@@ -136,14 +141,33 @@ static int pmu_set_vol(char *name, int set_vol, int onoff)
 			    p_item->step0_val;
 		reg_value |=
 			(base_step +
-			 (set_vol - p_item->split1_val) / p_item->step1_val);
-	} else {
-		reg_value |= (set_vol - p_item->min_vol) / p_item->step0_val;
+			 (set_vol - p_item->split1_val) / p_item->step1_val) << shift;
+	} else { 
+		reg_value |= ((set_vol - p_item->min_vol) / p_item->step0_val) << shift;
 	}
-
+    pmu_info("set reg 0x%x val to %d\n", p_item->cfg_reg_addr, reg_value);
 	if (pmic_bus_write(AXP152_RUNTIME_ADDR, p_item->cfg_reg_addr,
 			   reg_value)) {
 		pmu_err("unable to set %s\n", name);
+		return -1;
+	}
+    
+    /*      set on/off       */
+    if (onoff < 0) {
+		return 0;
+	}
+	if (pmic_bus_read(AXP152_RUNTIME_ADDR, p_item->ctrl_reg_addr,
+			  &reg_value)) {
+		return -1;
+	}
+	if (onoff == 0) {
+		reg_value &= ~(1 << p_item->ctrl_bit_ofs);
+	} else {
+		reg_value |= (1 << p_item->ctrl_bit_ofs);
+	}
+	if (pmic_bus_write(AXP152_RUNTIME_ADDR, p_item->ctrl_reg_addr,
+			   reg_value)) {
+		pmu_err("unable to onoff %s\n", name);
 		return -1;
 	}
 	return 0;
@@ -161,12 +185,12 @@ int axp152_set_efuse_voltage(int set_vol)
 
 int axp152_set_pll_voltage(int set_vol)
 {
-	return pmu_set_vol("dcdc2", set_vol, 1);
+	return pmu_set_vol("aldo1", set_vol, 1);
 }
 
 int axp152_set_sys_voltage(int set_vol, int onoff)
 {
-	return pmu_set_vol("dcdc1", set_vol, onoff);
+	return pmu_set_vol("dcdc2", set_vol, onoff);
 }
 
 int axp152_axp_init(u8 power_mode)
@@ -189,6 +213,6 @@ int axp152_axp_init(u8 power_mode)
 		printf("PMU: AXP152\n");
 		return AXP152_CHIP_ID;
 	}
-	printf("unknow PMU\n");
+	printf("unknown PMU\n");
 	return -1;
 }

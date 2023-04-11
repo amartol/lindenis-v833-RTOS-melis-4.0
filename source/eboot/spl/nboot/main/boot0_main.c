@@ -13,6 +13,8 @@
 #include <arch/dram.h>
 #include <arch/rtc.h>
 
+extern const boot0_file_head_t  BT0_head;
+
 static void update_uboot_info(u32 uboot_base, u32 optee_base, u32 monitor_base, u32 rtos_base, u32 dram_size,
 		u16 pmu_type, u16 uart_input, u16 key_input, u16 debug_mode);
 static int boot0_clear_env(void);
@@ -26,18 +28,19 @@ void main(void)
 	u32 uboot_base = 0, optee_base = 0, monitor_base = 0, rtos_base = 0;
 	u16 pmu_type = 0, key_input = 0; /* TODO: set real value */
 
-	sunxi_serial_init(BT0_head.prvt_head.uart_port, (void *)BT0_head.prvt_head.uart_ctrl, 6);
+	sunxi_serial_init(BT0_head.prvt_head.uart_port, (void *)BT0_head.prvt_head.uart_ctrl, 2);
 
 	sunxi_serial_reset(BT0_head.prvt_head.uart_port);
 #ifndef CFG_NOT_ALWAYS_PRINT_HELLO
-	printf("HELLO! BOOT0 is starting %s %s!\n", __DATE__, __TIME__);
+	printf("always HELLO! BOOT0 is starting %s %s!\n", __DATE__, __TIME__);
 	printf("BOOT0 commit : %s\n", BT0_head.hash);
 #endif
 
 
 #if defined(CFG_SUNXI_FES)
 	/* fes dont have debug_mode, do nothing */
-#elif defined(CFG_SUNXI_SBOOT)
+    printf("this is fes mode, no debug in boot0\n");
+#elif defined(CFG_SUNXI_SBOOT) 
 	debug_mode = toc0_config->debug_mode;
 #else
 	debug_mode = BT0_head.prvt_head.debug_mode;
@@ -81,11 +84,11 @@ void main(void)
 	if(!dram_size)
 		goto _BOOT_ERROR;
 	else {
-		printf("dram size =%d\n", dram_size);
+		printf("boot0 dram size =%d\n", dram_size);
 	}
 	mmu_enable(dram_size);
 	malloc_init(CONFIG_HEAP_BASE, CONFIG_HEAP_SIZE);
-
+     // load freertos
 	status = load_package();
 	if(status == 0 ) {
 #ifdef CFG_USE_DCACHE
@@ -101,7 +104,7 @@ void main(void)
 			pmu_type, uart_input_value, key_input, debug_mode);
 	mmu_disable( );
 
-	printf("Jump to secend Boot.\n");
+	printf("Jump to second Boot.\n");
 
 	if(monitor_base)
 		boot0_jmp_monitor(monitor_base);
@@ -112,7 +115,7 @@ void main(void)
 		if (!memcmp(((struct spare_rtos_head_t *)rtos_base)->boot_head.magic, "rtos", 4))
 			((struct spare_rtos_head_t *)rtos_base)->rtos_dram_size = (unsigned int)dram_size;
 		debug_mode = 1;
-		printf("jump to rtos\n");
+		printf("boot0 jump to rtos!\n");
 		boot0_jmp(rtos_base);
 	}
 	else

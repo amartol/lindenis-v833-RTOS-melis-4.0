@@ -677,7 +677,7 @@ static void print_cpu_info(void)
 
 void set_console_device(void)
 {
-    rt_console_set_device("uart3");
+    rt_console_set_device(RT_CONSOLE_DEVICE_NAME);
 }
 
 extern uint32_t melis_arch_use_fpu;

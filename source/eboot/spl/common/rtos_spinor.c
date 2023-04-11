@@ -60,7 +60,7 @@ int load_freertos_from_spinor(void)
 	uint sectors_A = 0;
 	uint sectors_B = 0;
 	uint total_size = 0;
-
+    printf("load_freertos_from_spinor\n");
 	if (init_gpt_nor()) {
 		printf("init spinor gpt fail\n");
 		return -1;

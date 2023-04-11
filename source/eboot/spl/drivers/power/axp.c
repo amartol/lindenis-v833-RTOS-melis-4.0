@@ -219,7 +219,7 @@ int axp_init(u8 power_mode)
 		return (pmu_chip_id = AXP152_CHIP_ID);
 	} else
 #endif
-#ifdef CFG_AXP152_POWER
+#ifdef CFG_AXP1530_POWER
 		if (axp1530_axp_init(power_mode) == AXP1530_CHIP_ID) {
 		return (pmu_chip_id = AXP1530_CHIP_ID);
 	} else

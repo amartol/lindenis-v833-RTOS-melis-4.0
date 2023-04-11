@@ -29,7 +29,7 @@ sunxi_dma_set g_spi_rx_dma;
 #define SUNXI_SPI_DEFAULT_CLK  (100000000)
 
 /* For debug */
-#define SPI_DEBUG 0
+//#define SPI_DEBUG 1
 
 #if SPI_DEBUG
 #define SPI_EXIT()		printf("%s()%d - %s\n", __func__, __LINE__, "Exit")

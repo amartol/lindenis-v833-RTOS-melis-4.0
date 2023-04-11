@@ -11,7 +11,7 @@
 #include <common.h>
 
 #define pmu_err(format, arg...)	printf("[pmu]: "format, ##arg)
-#define pmu_info(format, arg...)	/*printf("[pmu]: "format, ##arg)*/
+#define pmu_info(format, arg...)	printf("[pmu]: "format, ##arg)
 
 typedef struct _axp_contrl_info {
 	char name[8];

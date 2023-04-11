@@ -15,7 +15,7 @@
 #include <arch/cpu.h>
 
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
-
+#define BOOT_DEBUG
 #ifdef BOOT_DEBUG
 #define _DEBUG	1
 #define boot_info(fmt, args...)  printf(fmt, ##args)
@@ -59,6 +59,7 @@ int axp_init(u8 power_mode);
 int set_ddr_voltage(int set_vol);
 int set_sys_voltage(int set_vol);
 int set_pll_voltage(int set_vol);
+int set_efuse_voltage(int set_vol);
 int probe_power_key(void);
 int get_power_mode(void);
 

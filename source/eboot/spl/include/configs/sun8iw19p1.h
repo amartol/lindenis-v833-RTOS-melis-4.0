@@ -67,22 +67,27 @@
 #define CONFIG_HASH_INFO_TABLE_SIZE      (512 - CONFIG_HASH_TABLE_STACK_GAP)/*to pass hash info to optee*/
 #define CONFIG_HASH_INFO_TABLE_BASE      (CONFIG_SYS_SRAMC_BASE + CONFIG_SYS_SRAMC_SIZE - 4 - CONFIG_HASH_INFO_TABLE_SIZE)
 #define CONFIG_SBOOT_STACK               (CONFIG_HASH_INFO_TABLE_BASE - CONFIG_HASH_TABLE_STACK_GAP)
-#
+
 #define CONFIG_BOOT0_RET_ADDR            (CONFIG_SYS_SRAM_BASE)
 #define CONFIG_TOC0_HEAD_BASE            (CONFIG_SYS_SRAM_BASE)
 #define CONFIG_TOC0_CFG_ADDR             (CONFIG_SYS_SRAM_BASE + 0x80)
 
 
-#define CONFIG_SYS_INIT_RAM_SIZE 0x8000
+#define CONFIG_SYS_INIT_RAM_SIZE 	 0x18000 
 
 /* FES */
 #define CONFIG_FES1_RUN_ADDR             (0x28000)
 #define CONFIG_FES1_RET_ADDR             (CONFIG_SYS_SRAMC_BASE + 0x7210)
 
-/*CPU vol for boot*/
-#define CONFIG_SUNXI_CORE_VOL           900
 
 /*SYS vol for boot*/
-#define CONFIG_SUNXI_SYS_VOL            1000
+#define CONFIG_SUNXI_SYS_VOL            900
+
+/*DDR vol for boot*/
+#define CONFIG_SUNXI_DDR_VOL		 1500	
+
+#define CONFIG_SUNXI_EFUSE_VOL	 3300			
+
+#define CONFIG_SUNXI_PLL_VOL		 1800	
 
 #endif

@@ -34,9 +34,9 @@ const boot0_file_head_t  BT0_head =
     {
         //__u32 prvt_head_size;
         0,
-        //char prvt_head_vsn[4];      
+        //__u8 debug_mode;      
         1,
-        0,		/* power_mode */
+        0,		/* power_mode 0:axp, 1: no axp  */
         {0},	/* reserver[2]  */
         //unsigned int     dram_para[32] ; 
         {0},
@@ -44,8 +44,8 @@ const boot0_file_head_t  BT0_head =
         0,
         //normal_gpio_cfg       uart_ctrl[2];  
         {
-		{ 6, 2, 4, 1, 1, 0, {0}},//PB8: 4--RX
-		{ 6, 4, 4, 1, 1, 0, {0}},//PB9: 4--TX
+            { 7, 10, 4, 1, 1, 0, {0}},//PH10: 4--RX
+            { 7, 9, 4, 1, 1, 0, {0}},//PH9: 4--TX
         },
         //__s32 enable_jtag;  
         0,
@@ -53,12 +53,12 @@ const boot0_file_head_t  BT0_head =
         {{0},{0},{0},{0},{0}},
         //normal_gpio_cfg   storage_gpio[32]; 
         {
-		{ 0, 0, 2, 1, 2, 0, {0}},//PF0-5: 2--SDC
-		{ 0, 1, 2, 1, 2, 0, {0}},
-		{ 0, 2, 2, 1, 2, 0, {0}},
-		{ 0, 3, 2, 1, 2, 0, {0}},
-		{ 0, 4, 2, 1, 2, 0, {0}},
-		{ 0, 5, 2, 1, 2, 0, {0}},
+		  { 2, 0, 4, 0, 2, 0, {0}},     //PC0-5: 3--NOR
+		  { 2, 1, 4, 1, 2, 0, {0}},
+		  { 2, 2, 4, 0, 2, 0, {0}},
+		  { 2, 3, 4, 0, 2, 0, {0}},
+		  { 2, 4, 4, 0, 2, 0, {0}},
+		  { 2, 5, 4, 0, 2, 0, {0}},
         },
         //char  storage_data[512 - sizeof(normal_gpio_cfg) * 32]; 
         {0}

@@ -41,14 +41,15 @@ int main(void)
 
 	if (dram_size){
 		note_dram_log(1);
-		printf("init dram ok\n");
+		printf("fes init dram ok, size %d\n", dram_size);
 	} else {
 		note_dram_log(0);
-		printf("init dram fail\n");
+		printf("fes init dram fail\n");
+        asm volatile("b .");
 	}
 
 	mdelay(10);
-
+    printf("fes end\n");
 	return dram_size;
 }
 

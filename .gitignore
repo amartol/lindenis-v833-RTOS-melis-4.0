@@ -1,2 +1,8 @@
 .DS_Store
 xcuserdata
+logs/
+tools/
+toolchain/
+*.d
+*.o
+*.bin
