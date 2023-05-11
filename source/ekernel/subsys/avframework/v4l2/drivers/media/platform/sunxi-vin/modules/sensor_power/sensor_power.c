@@ -190,8 +190,8 @@ static int sensor_set_pmu_channel(struct sensor_power_dev *sensor_power,
 			enum sensor_pmic_channel pmic_ch, enum sensor_on_off on_off)
 {
 	int ret = 0;
-	static int def_vol[MAX_POW_NUM] = {3300000, 3300000, 1800000,
-					3300000, 3300000, 3300000};
+	static int def_vol[MAX_POW_NUM] = {1800000, 2800000, 1200000,
+					1800000, 1800000, 1800000};
 	struct sensor_power_cfg *power;
 
 	power  = &sensor_power->power[0];

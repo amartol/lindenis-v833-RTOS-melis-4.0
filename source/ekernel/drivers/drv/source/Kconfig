@@ -7,6 +7,18 @@ config  DRIVER_SDMMC
 config  DRIVER_REGULATOR
         bool "Support REGULATOR"
         default n
+if DRIVER_REGULATOR
+	choice REGULATOR
+	default AXP152_POWER
+	prompt "Power regulator"
+		help
+			Specify the power regulator chip.
+	config AXP152_POWER
+		bool "support AXP152 MFD"
+	config AXP2101_POWER
+		bool "support AXP2101 MFD"
+	endchoice
+endif
 
     source "ekernel/drivers/drv/source/ram_dev/Kconfig"
 endmenu

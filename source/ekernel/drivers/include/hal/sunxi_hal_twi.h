@@ -12,8 +12,8 @@ extern "C" {
 #endif
 
 //for debug
-#define CONFIG_DRIVERS_TWI_DEBUG
-#ifndef CONFIG_DRIVERS_TWI_DEBUG
+//#define CONFIG_DRIVERS_TWI_DEBUG
+#ifdef CONFIG_DRIVERS_TWI_DEBUG
 #define TWI_INFO(fmt, arg...) __log(fmt, ##arg)
 #else
 #define TWI_INFO(fmt, arg...) do {}while(0)

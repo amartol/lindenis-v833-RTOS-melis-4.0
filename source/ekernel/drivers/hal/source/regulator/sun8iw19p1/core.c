@@ -6,7 +6,6 @@
 
 extern struct regulator_ops axp_regulator_ops;
 
-#define REGULATOR_PMU_ADDR 0x34
 #define REGULATOR_TWI_PORT 4
 
 int hal_regulator_get(unsigned int request_flag, struct regulator_dev *rdev)
@@ -16,19 +15,20 @@ int hal_regulator_get(unsigned int request_flag, struct regulator_dev *rdev)
 	rdev->flag = request_flag;
 
 	switch (REGULATOR_TYPE(rdev->flag)) {
-	case AXP2101_REGULATOR:
+	case AXP2101_REGULATOR: 
+	case AXP152_REGULATOR:
 		rdev->flag |= (REGULATOR_PMU_ADDR << AXP_ADDR_SHIFT) |
 			      (REGULATOR_TWI_PORT << TWI_PORT_SHIFT);
-		rdev->private = (void *)axp2101_regulators;
 		rdev->ops = &axp_regulator_ops;
+		#ifdef CONFIG_AXP2101_POWER
+		rdev->private = (void *)axp2101_regulators;
+		#else
+		rdev->private = (void *)axp152_regulators;
+		#endif
 		axp_twi_init(rdev);
 		break;
 	default:
-		goto out;
+		return -1;
 	}
-
 	return 0;
-
-out:
-	return -1;
 }

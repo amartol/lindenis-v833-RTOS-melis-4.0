@@ -75,6 +75,7 @@ static int axp_regulator_set_voltage(struct regulator_dev *rdev, int target_uV)
 		return -1;
 
 	val <<= ffs(info->vol_mask) - 1;
+	__log("%s reg 0x%x, vol %d mask 0x%x", __func__, info->vol_reg, val, info->vol_mask);
 	return axp_byte_update(rdev, info->vol_reg, val, info->vol_mask);
 }
 

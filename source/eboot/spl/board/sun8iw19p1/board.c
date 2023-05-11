@@ -25,6 +25,7 @@ int sunxi_board_init(void)
     axp_init(0);
     set_sys_voltage(CONFIG_SUNXI_SYS_VOL);
     set_pll_voltage(CONFIG_SUNXI_PLL_VOL);
+    set_efuse_voltage(CONFIG_SUNXI_EFUSE_VOL);
 	printf("board init ok\n");
 	return 0;
 }

@@ -43,6 +43,6 @@ obj-$(CONFIG_LCD_SUPPORT_RT13QV005D) += lcd/rt13qv005d.o
 obj-$(CONFIG_LCD_SUPPORT_ILI9881C) += lcd/ili9881c.o
 obj-$(CONFIG_LCD_SUPPORT_TM_DSI_PANEL) += lcd/tm_dsi_panel.o
 obj-$(CONFIG_LCD_SUPPORT_ST7789V_CPU) += lcd/st7789v_cpu.o
-obj-y += lcd/lx50hdi4002.o
+obj-y += lcd/t050k589.o
 
 obj-y += $(obj_low)

@@ -143,5 +143,6 @@ extern struct __lcd_panel rt13qv005d_panel;
 #ifdef CONFIG_LCD_SUPPORT_ST7789V_CPU
 extern struct __lcd_panel st7789v_cpu_panel;
 #endif
-extern struct __lcd_panel lx50hdi4002_panel;
+//extern struct __lcd_panel lx50hdi4002_panel;
+extern struct __lcd_panel t050k589_panel;
 #endif

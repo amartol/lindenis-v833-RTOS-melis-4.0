@@ -202,15 +202,16 @@ struct vin_core sunxi_vinc[VIN_MAX_DEV] = {
 struct RT_WEAK sensor_list sensors_default[VIN_MAX_DEV] =
 {
 #ifdef CONFIG_FEXCONFIG
+	#ifdef CONFIG_AXP2101_POWER
     {
         .power =
         {
             [IOVDD] = {NULL, AXP2101_ID_ALDO2, 0, "iovdd"},
             [AVDD] = {NULL, AXP2101_ID_BLDO2, 0, "avdd"},
             [DVDD] = {NULL, AXP2101_ID_DLDO2, 0, "dvdd"},
-            [AFVDD] = {NULL, AXP2101_ID_MAX, 0, ""},
-            [FLVDD] = {NULL, AXP2101_ID_MAX, 0, ""},
-            [CAMERAVDD] = {NULL, AXP2101_ID_MAX, 0, ""},
+            [AFVDD] = {NULL, AXP_ID_MAX, 0, ""},
+            [FLVDD] = {NULL, AXP_ID_MAX, 0, ""},
+            [CAMERAVDD] = {NULL, AXP_ID_MAX, 0, ""},
         },
     },
     {
@@ -219,9 +220,9 @@ struct RT_WEAK sensor_list sensors_default[VIN_MAX_DEV] =
             [IOVDD] = {NULL, AXP2101_ID_ALDO2, 0, "iovdd"},
             [AVDD] = {NULL, AXP2101_ID_BLDO2, 0, "avdd"},
             [DVDD] = {NULL, AXP2101_ID_DLDO2, 0, "dvdd"},
-            [AFVDD] = {NULL, AXP2101_ID_MAX, 0, ""},
-            [FLVDD] = {NULL, AXP2101_ID_MAX, 0, ""},
-            [CAMERAVDD] = {NULL, AXP2101_ID_MAX, 0, ""},
+            [AFVDD] = {NULL, AXP_ID_MAX, 0, ""},
+            [FLVDD] = {NULL, AXP_ID_MAX, 0, ""},
+            [CAMERAVDD] = {NULL, AXP_ID_MAX, 0, ""},
         },
     },
     {
@@ -230,9 +231,9 @@ struct RT_WEAK sensor_list sensors_default[VIN_MAX_DEV] =
             [IOVDD] = {NULL, AXP2101_ID_ALDO2, 0, "iovdd"},
             [AVDD] = {NULL, AXP2101_ID_BLDO2, 0, "avdd"},
             [DVDD] = {NULL, AXP2101_ID_DLDO2, 0, "dvdd"},
-            [AFVDD] = {NULL, AXP2101_ID_MAX, 0, ""},
-            [FLVDD] = {NULL, AXP2101_ID_MAX, 0, ""},
-            [CAMERAVDD] = {NULL, AXP2101_ID_MAX, 0, ""},
+            [AFVDD] = {NULL, AXP_ID_MAX, 0, ""},
+            [FLVDD] = {NULL, AXP_ID_MAX, 0, ""},
+            [CAMERAVDD] = {NULL, AXP_ID_MAX, 0, ""},
         },
     },
     {
@@ -241,11 +242,57 @@ struct RT_WEAK sensor_list sensors_default[VIN_MAX_DEV] =
             [IOVDD] = {NULL, AXP2101_ID_ALDO2, 0, "iovdd"},
             [AVDD] = {NULL, AXP2101_ID_BLDO2, 0, "avdd"},
             [DVDD] = {NULL, AXP2101_ID_DLDO2, 0, "dvdd"},
-            [AFVDD] = {NULL, AXP2101_ID_MAX, 0, ""},
-            [FLVDD] = {NULL, AXP2101_ID_MAX, 0, ""},
-            [CAMERAVDD] = {NULL, AXP2101_ID_MAX, 0, ""},
+            [AFVDD] = {NULL, AXP_ID_MAX, 0, ""},
+            [FLVDD] = {NULL, AXP_ID_MAX, 0, ""},
+            [CAMERAVDD] = {NULL, AXP_ID_MAX, 0, ""},
         },
     }
+	#else
+	    {
+        .power =
+        {
+            [IOVDD] = {NULL, AXP152_ID_DLDO2, 0, "iovdd"},
+            [AVDD] = {NULL, AXP152_ID_ALDO2, 0, "avdd"},
+            [DVDD] = {NULL, AXP_ID_MAX, 0, ""},
+            [AFVDD] = {NULL, AXP_ID_MAX, 0, ""},
+            [FLVDD] = {NULL, AXP_ID_MAX, 0, ""},
+            [CAMERAVDD] = {NULL, AXP_ID_MAX, 0, ""},
+        },
+    },
+    {
+        .power =
+        {
+            [IOVDD] = {NULL, AXP152_ID_DLDO2, 0, "iovdd"},
+            [AVDD] = {NULL, AXP152_ID_ALDO2, 0, "avdd"},
+            [DVDD] = {NULL, AXP_ID_MAX, 0, ""},
+            [AFVDD] = {NULL, AXP_ID_MAX, 0, ""},
+            [FLVDD] = {NULL, AXP_ID_MAX, 0, ""},
+            [CAMERAVDD] = {NULL, AXP_ID_MAX, 0, ""},
+        },
+    },
+    {
+        .power =
+        {
+            [IOVDD] = {NULL, AXP152_ID_DLDO2, 0, "iovdd"},
+            [AVDD] = {NULL, AXP152_ID_ALDO2, 0, "avdd"},
+            [DVDD] = {NULL, AXP_ID_MAX, 0, ""},
+            [AFVDD] = {NULL, AXP_ID_MAX, 0, ""},
+            [FLVDD] = {NULL, AXP_ID_MAX, 0, ""},
+            [CAMERAVDD] = {NULL, AXP_ID_MAX, 0, ""},
+        },
+    },
+    {
+        .power =
+        {
+            [IOVDD] = {NULL, AXP152_ID_DLDO2, 0, "iovdd"},
+            [AVDD] = {NULL, AXP152_ID_ALDO2, 0, "avdd"},
+            [DVDD] = {NULL, AXP_ID_MAX, 0, ""},
+            [AFVDD] = {NULL, AXP_ID_MAX, 0, ""},
+            [FLVDD] = {NULL, AXP_ID_MAX, 0, ""},
+            [CAMERAVDD] = {NULL, AXP_ID_MAX, 0, ""},
+        },
+    }
+	#endif
 #else
     {
         .use_sensor_list = 0,

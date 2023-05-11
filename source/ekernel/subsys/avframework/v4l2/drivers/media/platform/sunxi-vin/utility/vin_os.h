@@ -40,7 +40,7 @@
 #define VIN_LOG_FMT				(1 << 11)	/*0x800*/
 #define VIN_LOG_TDM				(1 << 12)	/*0x1000*/
 
-//#define CONFIG_VIN_LOG
+#define CONFIG_VIN_LOG
 extern unsigned int vin_log_mask;
 #if defined CONFIG_VIN_LOG
 #define vin_log(flag, arg...) do { \

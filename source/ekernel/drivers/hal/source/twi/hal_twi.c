@@ -43,14 +43,15 @@ static const hal_clk_id_t hal_twi_mclk[] =
     HAL_CLK_PERIPH_TWI4,
 };
 
+#ifdef CONFIG_AXP2101_POWER
 static const enum REGULATOR_TYPE_ENUM twi_regulator_type = AXP2101_REGULATOR;
 static const enum REGULATOR_ID_ENUM twi_regulator_id[] =
 {
     AXP2101_ID_ALDO2,
     AXP2101_ID_ALDO2,
-    AXP2101_ID_MAX,
-    AXP2101_ID_MAX,
-    AXP2101_ID_MAX,
+    AXP_ID_MAX,
+    AXP_ID_MAX,
+    AXP_ID_MAX,
 };
 static const int twi_vol[] =
 {
@@ -59,8 +60,27 @@ static const int twi_vol[] =
     -1,
     -1,
     -1,
-};
 
+};
+#else
+static const enum REGULATOR_TYPE_ENUM twi_regulator_type = AXP152_REGULATOR;
+static const enum REGULATOR_ID_ENUM twi_regulator_id[] =
+{
+    AXP_ID_MAX,
+    AXP_ID_MAX,
+    AXP_ID_MAX,
+    AXP_ID_MAX,
+    AXP_ID_MAX,
+};
+static const int twi_vol[] =
+{
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+};
+#endif
 
 static hal_twi_t hal_twi[TWI_MASTER_MAX];
 
@@ -1785,21 +1805,21 @@ static twi_status_t hal_twi_regulator_init(hal_twi_t *twi)
     int tar_vol = twi_vol[twi->port];
     int ret;
 
-    if (regulator_id == AXP2101_ID_MAX)
+    if (regulator_id == AXP_ID_MAX)
     {
         TWI_INFO("[twi%d] needn't to set regulator", twi->port);
         return TWI_STATUS_OK;
     }
-
+    TWI_INFO("[twi%d] get regulator type %d, id %d", twi->port, regulator_type, regulator_id);
     hal_regulator_get(REGULATOR_GET(regulator_type, regulator_id), &twi->regulator);
-
+    TWI_INFO("[twi%d] set regulator voltage to %d", twi->port, tar_vol);
     ret = hal_regulator_set_voltage(&twi->regulator, tar_vol);
     if (ret)
     {
         TWI_ERR("twi%d set voltage failed", twi->port);
         return TWI_STATUS_ERROR;
     }
-
+    TWI_INFO("[twi%d] enable regulator", twi->port);
     ret = hal_regulator_enable(&twi->regulator);
     if (ret)
     {
@@ -1817,7 +1837,7 @@ static twi_status_t hal_twi_regulator_exit(hal_twi_t *twi)
 
     enum REGULATOR_ID_ENUM regulator_id = twi_regulator_id[twi->port];
 
-    if (regulator_id == AXP2101_ID_MAX)
+    if (regulator_id == AXP_ID_MAX)
     {
         TWI_INFO("[twi%d] needn't to exit regulator", twi->port);
         return TWI_STATUS_OK;

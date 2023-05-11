@@ -41,7 +41,7 @@
 /*
  * The GC2053 i2c address
  */
-#define I2C_ADDR 0x6e
+#define I2C_ADDR 0x7e
 
 #define SENSOR_NUM 0x2
 #define SENSOR_NAME "gc2053_mipi"

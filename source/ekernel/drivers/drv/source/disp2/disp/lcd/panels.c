@@ -102,7 +102,7 @@ struct __lcd_panel *panel_array[] = {
 #ifdef CONFIG_LCD_SUPPORT_ST7789V_CPU
 	&st7789v_cpu_panel,
 #endif
-	&lx50hdi4002_panel,
+	&t050k589_panel,
 	NULL,
 };
 

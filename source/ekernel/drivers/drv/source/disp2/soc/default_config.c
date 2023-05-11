@@ -23,6 +23,7 @@
 #include "../disp/disp_sys_intf.h"
 #include "disp_board_config.h"
 
+#ifdef CONFIG_AXP2101_POWER
 struct property_t g_lcd0_config[] = {
 	{
 		.name = "lcd_used",
@@ -181,7 +182,7 @@ struct property_t g_lcd0_config[] = {
 		},
 	},
 	{
-		.name = "lcd_gpio_0",
+		.name = "lcd_gpio_0",  //LCD-RST
 		.type = PROPERTY_GPIO,
 		.v.gpio_list = {
 			.gpio = GPIOD(9),
@@ -193,7 +194,167 @@ struct property_t g_lcd0_config[] = {
 	},
 
 };
+#else
+struct property_t g_lcd0_config[] = {
+	{
+		.name = "lcd_used",
+		.type = PROPERTY_INTGER,
+		.v.value = 1,
+	},
+	{
+		.name = "lcd_driver_name",
+		.type = PROPERTY_STRING,
+		.v.str = "t050k589",
+	},
+	{
+		.name = "lcd_backlight",
+		.type = PROPERTY_INTGER,
+		.v.value = 150,
+	},
+	{
+		.name = "lcd_if",
+		.type = PROPERTY_INTGER,
+		.v.value = 4,
+	},
+	{
+		.name = "lcd_x",
+		.type = PROPERTY_INTGER,
+		.v.value = 720,
+	},
+	{
+		.name = "lcd_y",
+		.type = PROPERTY_INTGER,
+		.v.value = 1280,
+	},
+	{
+		.name = "lcd_width",
+		.type = PROPERTY_INTGER,
+		.v.value = 36,
+	},
+	{
+		.name = "lcd_height",
+		.type = PROPERTY_INTGER,
+		.v.value = 65,
+	},
+	{
+		.name = "lcd_dclk_freq",
+		.type = PROPERTY_INTGER,
+		.v.value = 65,
+	},
+	{
+		.name = "lcd_pwm_used",
+		.type = PROPERTY_INTGER,
+		.v.value = 1,
+	},
+	{
+		.name = "lcd_pwm_ch",
+		.type = PROPERTY_INTGER,
+		.v.value = 9,
+	},
+	{
+		.name = "lcd_pwm_freq",
+		.type = PROPERTY_INTGER,
+		.v.value = 50000,
+	},
+	{
+		.name = "lcd_pwm_pol",
+		.type = PROPERTY_INTGER,
+		.v.value = 1,
+	},
+	{
+		.name = "lcd_pwm_max_limit",
+		.type = PROPERTY_INTGER,
+		.v.value = 255,
+	},
+	{
+		.name = "lcd_hbp",
+		.type = PROPERTY_INTGER,
+		.v.value = 32,
+	},
+	{
+		.name = "lcd_ht",
+		.type = PROPERTY_INTGER,
+		.v.value = 780,
+	},
+	{
+		.name = "lcd_hspw",
+		.type = PROPERTY_INTGER,
+		.v.value = 8,
+	},
+	{
+		.name = "lcd_vbp",
+		.type = PROPERTY_INTGER,
+		.v.value = 12,
+	},
+	{
+		.name = "lcd_vt",
+		.type = PROPERTY_INTGER,
+		.v.value = 1304,
+	},
+	{
+		.name = "lcd_vspw",
+		.type = PROPERTY_INTGER,
+		.v.value = 4,
+	},
+	{
+		.name = "lcd_dsi_if",
+		.type = PROPERTY_INTGER,
+		.v.value = 0,
+	},
+	{
+		.name = "lcd_dsi_lane",
+		.type = PROPERTY_INTGER,
+		.v.value = 4,
+	},
+	{
+		.name = "lcd_dsi_format",
+		.type = PROPERTY_INTGER,
+		.v.value = 0,
+	},
+	{
+		.name = "lcd_dsi_te",
+		.type = PROPERTY_INTGER,
+		.v.value = 0,
+	},
+	{
+		.name = "lcd_frm",
+		.type = PROPERTY_INTGER,
+		.v.value = 0,
+	},
+	{
+		.name = "lcd_power",
+		.type = PROPERTY_POWER,
+		.v.power = {
+			.power_name = "dcdc1",
+			.power_type = AXP152_REGULATOR,
+			.power_id = AXP152_ID_DCDC1,
+			.power_vol = 3300000,
+		},
+	},
+	{
+		.name = "lcd_power1",
+		.type = PROPERTY_POWER,
+		.v.power = {
+			.power_name = "aldo1",
+			.power_type = AXP152_REGULATOR,
+			.power_id = AXP152_ID_ALDO1,
+			.power_vol = 1800000,
+		},
+	},
+	{
+		.name = "lcd_gpio_0",  //LCD-RST
+		.type = PROPERTY_GPIO,
+		.v.gpio_list = {
+			.gpio = GPIOL(5),
+			.mul_sel = GPIO_DIRECTION_OUTPUT,
+			.pull = 0,
+			.drv_level = 3,
+			.data = 1,
+		},
+	},
 
+};
+#endif
 struct property_t g_lcd1_config[] = {
 	{
 		.name = "lcd_used",

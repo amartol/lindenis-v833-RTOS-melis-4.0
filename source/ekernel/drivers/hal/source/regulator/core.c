@@ -23,7 +23,7 @@ int hal_regulator_set_voltage(struct regulator_dev *rdev,
 			      int target_uV)
 {
 	int ret = 0;
-
+	__log("hal_reg %d set voltage %d", rdev ->flag, target_uV);
 	if (rdev && rdev->ops && rdev->ops->set_voltage) {
 		ret = rdev->ops->set_voltage(rdev, target_uV);
 	} else {
@@ -36,7 +36,7 @@ int hal_regulator_set_voltage(struct regulator_dev *rdev,
 int hal_regulator_enable(struct regulator_dev *rdev)
 {
 	int ret = 0;
-
+	__log("hal_reg %d enable", rdev ->flag);
 	if (rdev && rdev->ops && rdev->ops->enable) {
 		ret = rdev->ops->enable(rdev);
 	} else {

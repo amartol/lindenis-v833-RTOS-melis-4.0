@@ -407,13 +407,17 @@ int parse_modules_from_device_tree(struct vin_md *vind)
 		for (i = 0; i < MAX_POW_NUM; i++) {
 			power = &sensors_default[j].power[i];
 
-			if (power->regulator_id < AXP2101_ID_MAX && power->power_vol != 0) {
+			if (power->regulator_id < AXP_ID_MAX && power->power_vol != 0) {
 				power->pmic = rt_calloc(1, sizeof(struct regulator_dev));
 				if (power->pmic == NULL) {
 					vin_err("fatal error: calloc %d error\n", sizeof(struct regulator_dev));
 					return -1;
 				}
+				#ifdef CONFIG_AXP2101_POWER
 				hal_regulator_get(REGULATOR_GET(AXP2101_REGULATOR, power->regulator_id), power->pmic);
+				#else
+				hal_regulator_get(REGULATOR_GET(AXP152_REGULATOR, power->regulator_id), power->pmic);
+				#endif
 			}
 		}
 	}

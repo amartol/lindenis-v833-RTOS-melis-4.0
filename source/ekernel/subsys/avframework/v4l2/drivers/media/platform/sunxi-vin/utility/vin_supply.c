@@ -80,8 +80,8 @@ int vin_set_pmu_channel(struct v4l2_subdev *sd, enum pmic_channel pmic_ch,
 	int ret = 0;
 #ifndef FPGA_VER
 	struct modules_config *modules = sd_to_modules(sd);
-	static int def_vol[MAX_POW_NUM] = {3300000, 3300000, 1800000,
-					3300000, 3300000, 3300000};
+	static int def_vol[MAX_POW_NUM] = {1800000, 2800000, 1200000,
+					1800000, 1800000, 1800000};
 	struct vin_power *power = NULL;
 
 	if (modules == NULL)

@@ -39,7 +39,7 @@ static int pmu_set_vol(char *name, int set_vol, int onoff);
 
 static axp_contrl_info axp_ctrl_tbl[] = {
 	/*   name        min,     max,    reg,    mask,  step0,   split1_val,  step1,   ctrl_reg,           ctrl_bit */
-	{ "dcdc1", 1700, 3500, AXP152_DC1OUT_VOL, 0x0f, 100, 0, 0,
+	{ "dcdc1", 2000, 3500, AXP152_DC1OUT_VOL, 0x0f, 100, 0, 0,
 	  AXP152_OUTPUT_CTL, 7 },
 	{ "dcdc2", 700, 2275, AXP152_DC2OUT_VOL, 0x3f, 25, 0, 0,
 	  AXP152_OUTPUT_CTL, 6 },
@@ -180,7 +180,7 @@ int axp152_set_ddr_voltage(int set_vol)
 
 int axp152_set_efuse_voltage(int set_vol)
 {
-	return pmu_set_vol("aldo1", set_vol, 1);
+	return pmu_set_vol("dcdc1", set_vol, 1);
 }
 
 int axp152_set_pll_voltage(int set_vol)

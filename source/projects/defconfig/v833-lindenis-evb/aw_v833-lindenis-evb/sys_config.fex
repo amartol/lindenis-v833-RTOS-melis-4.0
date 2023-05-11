@@ -766,10 +766,10 @@ csi1_d15                = port:PE21<2><default><default><default>
 
 [vind0/sensor0]
 sensor0_used          = 0
-sensor0_mname         = "imx307_mipi"
+sensor0_mname         = "gc2053_mipi"
 sensor0_twi_cci_spi   = 0
 sensor0_twi_cci_id    = 1
-sensor0_twi_addr      = 0x34
+sensor0_twi_addr      = 0x7e
 sensor0_cam_type      = 1
 sensor0_mclk_id       = 0
 sensor0_pos           = "rear"

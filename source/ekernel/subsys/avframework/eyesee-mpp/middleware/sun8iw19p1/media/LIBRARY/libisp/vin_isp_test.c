@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <pthread.h>
+#include <signal.h>
 
 #include "isp.h"
 #include <device/video.h>
@@ -126,7 +127,7 @@ static void terminate(int sig_no)
 
 static void install_sig_handler(void)
 {
-#if 0
+#if 1
 	signal(SIGBUS, terminate);
 	signal(SIGFPE, terminate);
 	signal(SIGHUP, terminate);
@@ -722,8 +723,8 @@ int cmd_vin_preview(int argc, char *argv[])
     {
 	"vin_preview",
 	"0",
-	"1920",
-	"1080",
+	"720",
+	"1280",
 	"./",
 	"1",
 	"10000",

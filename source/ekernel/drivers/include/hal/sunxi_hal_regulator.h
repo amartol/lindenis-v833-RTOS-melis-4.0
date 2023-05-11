@@ -130,6 +130,7 @@ struct regulator_desc {
 
 enum REGULATOR_TYPE_ENUM{
 	AXP2101_REGULATOR,
+	AXP152_REGULATOR,
 	PWM_REGULATOR,
 	GPIO_REGULATOR,
 };
@@ -161,6 +162,9 @@ int hal_regulator_enable(struct regulator_dev *rdev);
 int hal_regulator_disable(struct regulator_dev *rdev);
 int hal_regulator_get(unsigned int request_flag, struct regulator_dev *rdev);
 
+#ifdef CONFIG_AXP2101_POWER
+#define REGULATOR_PMU_ADDR 0x34
+
 enum REGULATOR_ID_ENUM {
 	AXP2101_ID_DCDC1 = 0,
 	AXP2101_ID_DCDC2,
@@ -176,9 +180,26 @@ enum REGULATOR_ID_ENUM {
 	AXP2101_ID_DLDO1,
 	AXP2101_ID_DLDO2,
 	AXP2101_ID_CPUSLDO,
-	AXP2101_ID_MAX,
+	AXP_ID_MAX,
 };
 extern const struct regulator_desc axp2101_regulators[];
+#else 
+#define REGULATOR_PMU_ADDR 0x30
+
+enum REGULATOR_ID_ENUM {
+	AXP152_ID_DCDC1 = 0,
+	AXP152_ID_DCDC2,
+	AXP152_ID_DCDC3,
+	AXP152_ID_DCDC4,
+	AXP152_ID_ALDO2,
+	AXP152_ID_ALDO1,
+	AXP152_ID_DLDO1,
+	AXP152_ID_DLDO2,
+	AXP_ID_MAX,
+};
+extern const struct regulator_desc axp152_regulators[];
+#endif
+
 
 int axp_twi_init(struct regulator_dev *rdev);
 int axp_byte_read(struct regulator_dev *rdev, u8 reg, u8 *reg_val);
